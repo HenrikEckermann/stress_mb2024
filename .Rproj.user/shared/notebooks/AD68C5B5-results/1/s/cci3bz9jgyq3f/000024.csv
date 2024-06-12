@@ -1,0 +1,3 @@
+"0","load(here(""data/rdata/mad_plots.Rds""))"
+"0","load(here(""data/rdata/biplot_m.Rds""))"
+"0","mad_plots[[1]] + theme(legend.position = ""None"") + mad_plots[[2]] + theme(legend.position = ""None"")"

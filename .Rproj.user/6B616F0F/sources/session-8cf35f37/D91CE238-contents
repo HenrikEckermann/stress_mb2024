@@ -1,0 +1,950 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+% definitions for citeproc citations
+\NewDocumentCommand\citeproctext{}{}
+\NewDocumentCommand\citeproc{mm}{%
+  \begingroup\def\citeproctext{#2}\cite{#1}\endgroup}
+\makeatletter
+ % allow citations to break across lines
+ \let\@cite@ofmt\@firstofone
+ % avoid brackets around text for \cite:
+ \def\@biblabel#1{}
+ \def\@cite#1#2{{#1\if@tempswa , #2\fi}}
+\makeatother
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-indent, #2 entry-spacing
+ {\begin{list}{}{%
+  \setlength{\itemindent}{0pt}
+  \setlength{\leftmargin}{0pt}
+  \setlength{\parsep}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+   \setlength{\leftmargin}{\cslhangindent}
+   \setlength{\itemindent}{-1\cslhangindent}
+  \fi
+  % set entry spacing
+  \setlength{\itemsep}{#2\baselineskip}}}
+ {\end{list}}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{\hfill\break\parbox[t]{\linewidth}{\strut\ignorespaces#1\strut}}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+\usepackage[utf8]{inputenc}
+\usepackage{textgreek}
+\usepackage{amsmath}
+\usepackage{caption}
+\captionsetup[table]{name=Table S, labelfont=bf, labelsep=colon, singlelinecheck=off, skip=0pt}
+\captionsetup[figure]{name=Figure S, labelfont=bf, labelsep=colon, singlelinecheck=off, skip=0pt}
+\DeclareCaptionLabelFormat{custom}{#1#2}
+\captionsetup[table]{labelformat=custom}
+\captionsetup[figure]{labelformat=custom}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\author{}
+\date{\vspace{-2.5em}}
+
+\begin{document}
+
+\section{Supplemenraty Methods}\label{supplemenraty-methods}
+
+\subsection{Microbial DNA extraction}\label{microbial-dna-extraction}
+
+DNA was extracted from feces using the ZymoBIOMICS DNA 96 Magbead kit
+(ZY-D4302, Zymo Research) and an automated extraction robot, the
+Kingfisher Flex Purification System. DNA concentration was assessed
+using a fluorometer (Infinite F200, Tecan) with the Quant-iT™ dsDNA
+Broad-Range Assay Kit (VXQ33130, Invitrogen). A liquid handler (Biomek
+i7 Automated Workstation) was used to perform the in-house optimized
+Nextera XT Library preparation (FC-131-1096, Illumina). In summary, 0.25
+ng of genomic DNA was used as a template for the library preparation. A
+tagmentation step was carried out at 55 degrees Celsius for 5 minutes
+using a transposome to add Illumina adapters, creating fragments of
+approximately 300 bp. The tagmented DNA with the Illumina adapter was
+then employed as a template for PCR amplification and to add unique
+index primers. The PCR protocol included 72°C for 3 minutes, 95°C for 30
+seconds and 12 cycles ofthe following: 95°C for 10 seconds, 55°C for 30
+seconds, 72°C for 30 seconds, 72°C for 5 minutes and hold at 10°C.
+
+The PCR products were purified using Agencourt© AMPure® XP (A63882
+Becker Coulter). DNA was measured using the fluorometer ( Infinite F200
+Pro Tecan) and fluorometric analysis (Quant-iT™ dsDNA High Sensitivity,
+Invitrogen). The purified PCR products were equimolarly pooled, followed
+by sequencing on the Novaseq 6000 (Illumina) for a minimum of 1500 Mb
+per sample. FASTQ read sequence files were generated using bcl2fastq
+version 2.20 (Illumina). Initial quality assessment was based on data
+passing the Illumina Chastity filtering. Subsequently, reads containing
+PhiX control signal were removed using by aligning to the PhiX reference
+sequence (Bowtie2.2.6) and taking the unaligned reads. In addition,
+reads containing (partial) adapters were clipped (up to a minimum read
+length of 50bp) by using fastq-mcf from the ea-utils package v1.04.807.
+The second quality assessment was based on the remaining reads using the
+FASTQC quality control tool version 0.11.8.
+
+\subsection{Microbial taxonomic
+profiling}\label{microbial-taxonomic-profiling}
+
+MetaPhlAn (Truong et al., 2015) v4.0 was used to conduct taxonomic
+profiling of the metagenomic samples. This tool uses a library of
+clade-specific markers to provide quantification at species level for
+microbial entities, including bacteria, archaea, viruses, and
+eukaryotes. The default settings were applied when running MetaPhlAn.
+HUMAnN3 (Abubucker et al., 2012) v3.0 was used to perform functional
+profiling. When provided with an input metagenome, HUMAnN3 generates a
+sample-specific reference database, which is constructed by
+concatenating and indexing the pangenomes of species identified by
+MetaPhlAn in the sample. Pangenomes refer to pre-clustered and
+pre-annotated catalogues of open reading frames that are found across
+isolated genomes from a particular species (Huang et al., 2014).
+Subsequently, using HUMAnN3, sample reads were mapped against this
+database to quantify the presence and abundance of genes in a
+species-stratified manner. Unmapped reads were further used in a
+translated search against UniRef90 (Suzek et al., 2015) to include
+abundances of gene families that are taxonomically unclassified but
+functionally distinct. Lastly, HUMAnN3 reconstructed metabolic pathway
+abundance, to determine community-total, species-stratified, and
+unclassified gene family abundance. This reconstruction was based on the
+subset of gene families annotated to metabolic reactions, based on
+reaction and pathway definitions from MetaCyc (Caspi et al., 2016).
+Enzyme abundances at the level-4 Enzyme Commission (EC) categories were
+further computed by summing the abundances of individual gene families
+annotated to each EC number. The annotations were based on UniRef90-EC
+annotations obtained from UniProt (The UniProt Consortium et al., 2023).
+A phylogenetic tree was obtained using the chocophlan database
+\emph{mpa\_vJan21\_CHOCOPhlAnSGB\_202103} (obtained from
+\url{https://github.com/biobakery/MetaPhlAn/blob/master/metaphlan/utils/mpa_vJan21_CHOCOPhlAnSGB_202103.nwk}).
+
+\newpage
+
+\section{Supplementary Tables}\label{supplementary-tables}
+
+\begin{longtable}[]{@{}llrrl@{}}
+\caption{Number of stool samples per time point.}\tabularnewline
+\toprule\noalign{}
+Origin & Stage & Week & n & Abbreviation \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+Origin & Stage & Week & n & Abbreviation \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Mother & Prenatal & 18 & 150 & M1 \\
+Mother & Prenatal & 32 & 147 & M2 \\
+Mother & Postnatal & 32 & 98 & M3 \\
+Infant & Postnatal & 2 & 139 & I1 \\
+Infant & Postnatal & 6 & 136 & I2 \\
+Infant & Postnatal & 12 & 139 & I3 \\
+Infant & Postnatal & 32 & 100 & I4 \\
+\end{longtable}
+
+\begin{longtable}[t]{lrr}
+\caption{\label{tab:unnamed-chunk-3}Bacterial species differentially abundant between maternal samples collected at 32 weeks of pregnancy and 8 months postpartum.}\\
+\toprule
+Feature & Coefficient & q\\
+\midrule
+s\_\_Actinomyces\_oris & -0.002 & 0.022\\
+s\_\_Actinomyces\_SGB17168 & 0.002 & 0.051\\
+s\_\_GGB3510\_SGB4687 & -0.002 & 0.062\\
+s\_\_Clostridia\_bacterium\_UC5\_1\_1D1 & 0.003 & 0.047\\
+s\_\_Clostridia\_unclassified\_SGB66170 & -0.003 & 0.051\\
+\addlinespace
+s\_\_GGB3571\_SGB4778 & 0.003 & 0.051\\
+s\_\_Rothia\_mucilaginosa & -0.004 & 0.005\\
+s\_\_Faecalibacillus\_faecis & -0.004 & 0.040\\
+s\_\_Clostridia\_unclassified\_SGB6276 & -0.004 & 0.041\\
+s\_\_Clostridia\_unclassified\_SGB4121 & 0.005 & 0.001\\
+\addlinespace
+s\_\_Eubacterium\_ventriosum & -0.005 & 0.071\\
+s\_\_Streptococcus\_parasanguinis & -0.006 & 0.001\\
+s\_\_GGB9522\_SGB14921 & 0.006 & 0.001\\
+s\_\_Lachnospiraceae\_unclassified\_SGB4894 & -0.006 & 0.027\\
+s\_\_Romboutsia\_timonensis & -0.006 & 0.062\\
+\addlinespace
+s\_\_Phocaeicola\_massiliensis & -0.006 & 0.082\\
+s\_\_GGB3570\_SGB4777 & 0.007 & 0.000\\
+s\_\_Methanobrevibacter\_smithii & -0.007 & 0.061\\
+s\_\_Odoribacter\_splanchnicus & -0.008 & 0.015\\
+s\_\_Parabacteroides\_distasonis & -0.008 & 0.019\\
+\addlinespace
+s\_\_GGB9627\_SGB15081 & 0.009 & 0.001\\
+s\_\_GGB9699\_SGB15216 & 0.009 & 0.019\\
+s\_\_Turicibacter\_sanguinis & -0.010 & 0.001\\
+s\_\_Clostridiales\_bacterium\_KLE1615 & 0.011 & 0.027\\
+s\_\_Agathobaculum\_butyriciproducens & 0.011 & 0.039\\
+\addlinespace
+s\_\_Barnesiella\_intestinihominis & -0.011 & 0.057\\
+s\_\_Streptococcus\_salivarius & -0.016 & 0.000\\
+s\_\_GGB9632\_SGB15089 & 0.016 & 0.007\\
+s\_\_Lachnospiraceae\_bacterium\_WCA3\_601\_WT\_6H & -0.016 & 0.025\\
+s\_\_Streptococcus\_thermophilus & -0.018 & 0.080\\
+\addlinespace
+s\_\_Ruminococcaceae\_unclassified\_SGB15265 & 0.020 & 0.010\\
+s\_\_Fusicatenibacter\_saccharivorans & 0.030 & 0.011\\
+s\_\_Anaerostipes\_hadrus & -0.031 & 0.005\\
+s\_\_Akkermansia\_muciniphila & -0.042 & 0.039\\
+\bottomrule
+\multicolumn{3}{l}{\rule{0pt}{1em}\textit{Note: }}\\
+\multicolumn{3}{l}{\rule{0pt}{1em}The leading "s" indicates phylogenetic Species level.}\\
+\end{longtable}
+
+\newpage
+
+\begin{ThreePartTable}
+\begin{TableNotes}
+\item \textit{Note: } 
+\item M = median of the posterior distribution. HCS = hair cortisol, HCN = hair cortisone, HCR = log-ratio of hair cortisol and cortisone and the measured times include 23-32 (1), 15-23 (2) and 6-15 weeks of gestation as well as 4-8 weeks postpartum (4). M1 - M3 = Time point of maternal microbiota sampling in chronological order (18 and 32 weeks of gestation and 8 months postpartum). PRAQR2-B = Fear of giving birth. PRAQR2-H = Fear of a handicapped child. MS = maternal stress composite score.
+\end{TableNotes}
+\begin{longtable}[t]{lllrrrrr}
+\caption{\label{tab:unnamed-chunk-4}Posterior distribution of the beta coefficients corresponding to the different prenatal and postnatal stress measures per time point and alpha diversity index per maternal sample.}\\
+\toprule
+Stress Variable & Sample & Index & M & SD & 95\% HDI lower & 95\% HDI upper & P($\beta \geq 0$)\\
+\midrule
+MS & M1 & shannon & 0.050 & 0.076 & -0.096 & 0.201 & 0.739\\
+MS & M2 & shannon & -0.037 & 0.085 & -0.204 & 0.129 & 0.328\\
+MS & M3 & shannon & 0.053 & 0.092 & -0.125 & 0.237 & 0.718\\
+MS & M1 & faith & 0.016 & 0.059 & -0.099 & 0.133 & 0.605\\
+MS & M2 & faith & 0.032 & 0.061 & -0.087 & 0.150 & 0.706\\
+\addlinespace
+MS & M3 & faith & 0.043 & 0.066 & -0.082 & 0.179 & 0.743\\
+STAI & M1 & shannon & 0.070 & 0.073 & -0.075 & 0.211 & 0.834\\
+STAI & M2 & shannon & -0.052 & 0.086 & -0.229 & 0.111 & 0.270\\
+STAI & M3 & shannon & 0.036 & 0.094 & -0.148 & 0.222 & 0.646\\
+STAI & M1 & faith & 0.033 & 0.057 & -0.078 & 0.144 & 0.720\\
+\addlinespace
+STAI & M2 & faith & 0.022 & 0.062 & -0.100 & 0.141 & 0.634\\
+STAI & M3 & faith & 0.031 & 0.069 & -0.101 & 0.166 & 0.675\\
+EPDS & M1 & shannon & 0.032 & 0.076 & -0.116 & 0.183 & 0.671\\
+EPDS & M2 & shannon & -0.017 & 0.086 & -0.178 & 0.157 & 0.423\\
+EPDS & M3 & shannon & 0.049 & 0.094 & -0.130 & 0.237 & 0.700\\
+\addlinespace
+EPDS & M1 & faith & 0.023 & 0.060 & -0.098 & 0.137 & 0.645\\
+EPDS & M2 & faith & 0.042 & 0.064 & -0.083 & 0.166 & 0.749\\
+EPDS & M3 & faith & 0.042 & 0.070 & -0.086 & 0.187 & 0.729\\
+PSS & M1 & shannon & 0.016 & 0.073 & -0.128 & 0.159 & 0.583\\
+PSS & M2 & shannon & -0.038 & 0.084 & -0.205 & 0.125 & 0.330\\
+\addlinespace
+PSS & M3 & shannon & 0.064 & 0.095 & -0.121 & 0.248 & 0.753\\
+PSS & M1 & faith & -0.035 & 0.058 & -0.150 & 0.077 & 0.273\\
+PSS & M2 & faith & 0.018 & 0.062 & -0.098 & 0.143 & 0.618\\
+PSS & M3 & faith & 0.049 & 0.070 & -0.085 & 0.187 & 0.762\\
+PRAQR2-H & M1 & shannon & 0.015 & 0.071 & -0.121 & 0.158 & 0.581\\
+\addlinespace
+PRAQR2-H & M2 & shannon & 0.019 & 0.076 & -0.128 & 0.171 & 0.603\\
+PRAQR2-H & M1 & faith & 0.014 & 0.055 & -0.091 & 0.124 & 0.597\\
+PRAQR2-H & M2 & faith & -0.012 & 0.052 & -0.114 & 0.087 & 0.408\\
+PRAQR2-B & M1 & shannon & -0.251 & 0.071 & -0.388 & -0.112 & 0.000\\
+PRAQR2-B & M2 & shannon & 0.210 & 0.073 & 0.067 & 0.353 & 0.998\\
+\addlinespace
+PRAQR2-B & M1 & faith & -0.125 & 0.059 & -0.239 & -0.009 & 0.018\\
+PRAQR2-B & M2 & faith & 0.066 & 0.052 & -0.034 & 0.168 & 0.900\\
+HCS2 & M1 & shannon & -0.063 & 0.074 & -0.210 & 0.077 & 0.196\\
+HCS3 & M2 & shannon & 0.002 & 0.107 & -0.207 & 0.211 & 0.506\\
+HCS2 & M1 & faith & 0.070 & 0.056 & -0.044 & 0.177 & 0.892\\
+\addlinespace
+HCS3 & M2 & faith & 0.068 & 0.082 & -0.094 & 0.230 & 0.798\\
+HCN2 & M1 & shannon & -0.120 & 0.082 & -0.267 & 0.054 & 0.087\\
+HCN3 & M2 & shannon & -0.168 & 0.177 & -0.498 & 0.122 & 0.213\\
+HCN2 & M1 & faith & -0.012 & 0.069 & -0.135 & 0.139 & 0.434\\
+HCN3 & M2 & faith & -0.039 & 0.086 & -0.213 & 0.137 & 0.309\\
+\addlinespace
+HCR2 & M1 & shannon & 0.234 & 0.104 & 0.029 & 0.436 & 0.987\\
+HCR3 & M2 & shannon & 0.187 & 0.154 & -0.104 & 0.496 & 0.892\\
+HCR2 & M1 & faith & 0.192 & 0.085 & 0.024 & 0.358 & 0.988\\
+HCR3 & M2 & faith & 0.097 & 0.127 & -0.156 & 0.348 & 0.780\\
+PSAS & M1 & shannon & -0.097 & 0.112 & -0.318 & 0.123 & 0.188\\
+\addlinespace
+PSAS & M1 & faith & -0.155 & 0.104 & -0.360 & 0.047 & 0.068\\
+\bottomrule
+\insertTableNotes
+\end{longtable}
+\end{ThreePartTable}
+
+\begin{ThreePartTable}
+\begin{TableNotes}
+\item \textit{Note: } 
+\item The leading "s" indicates phylogenetic Species level.
+\end{TableNotes}
+\begin{longtable}[t]{llrr}
+\caption{\label{tab:unnamed-chunk-5}Bacterial species identified in the maternal microbiota samples associated with any of the maternal stress variables. Results are based on a multilevel model fit to all time points.}\\
+\toprule
+Stress Variable & Feature & Coefficient & q\\
+\midrule
+PSS-10 & s\_\_Blautia\_sp\_MSK\_20\_85 & 0.009 & 0.078\\
+\bottomrule
+\insertTableNotes
+\end{longtable}
+\end{ThreePartTable}
+
+\begin{ThreePartTable}
+\begin{TableNotes}
+\item \textit{Note: } 
+\item The leading "s" indicates phylogenetic Species level. HCN3 = Hair cortisone reflecting cortisone levels between 23 and 32 weeks of pregnancy.
+\end{TableNotes}
+\begin{longtable}[t]{lllrr}
+\caption{\label{tab:unnamed-chunk-6}Bacterial species identified in the maternal microbiota samples associated with any of the maternal stress variables. Results are based on models fit per maternal microbiota sampling time point.}\\
+\toprule
+Stress Variable & Sample & Feature & Coefficient & q\\
+\midrule
+HCN3 & M2 & s\_\_Bacteroides\_cellulosilyticus & -0.024 & 0.068\\
+\bottomrule
+\insertTableNotes
+\end{longtable}
+\end{ThreePartTable}
+
+\begin{ThreePartTable}
+\begin{TableNotes}
+\item \textit{Note: } 
+\item M = median of the posterior distribution. p = proportion of the posterior distribution larger than zero. The column 'Time' indicates when the stress variable was measured during pregnancy or which period cortisol and cortisone were measured in, whereby HCS = hair cortisol, HCN = hair cortisone, HCR = log-ratio of hair cortisol and cortisone and the measured times include 23-32 (1), 15-23 (2) and 6-15 weeks of gestation as well as 4-8 weeks postpartum (4). I1 - I4 = Time point of infant microbiota sampling in chronological order (2, 6 and 12 weeks and 8 months). PRAQR2-B = Fear of giving birth. PRAQR2-H = Fear of a handicapped child. MS = maternal stress composite score.
+\end{TableNotes}
+\begin{longtable}[t]{llllrrrrr}
+\caption{\label{tab:unnamed-chunk-7}Posterior distribution of the beta coefficients corresponding to the different prenatal stress measures per time point and alpha diversity index per infant sample.}\\
+\toprule
+Time & Sample & Stress Variable & Index & M & SD & 95\% HDI lower & 95\% HDI upper & P($\beta \geq 0$)\\
+\midrule
+18 & I1 & MS & shannon & -0.054 & 0.031 & -0.116 & 0.006 & 0.041\\
+18 & I1 & MS & faith & 0.017 & 0.026 & -0.034 & 0.066 & 0.746\\
+18 & I1 & STAI & shannon & -0.169 & 0.083 & -0.331 & -0.007 & 0.022\\
+18 & I1 & STAI & faith & 0.042 & 0.069 & -0.100 & 0.171 & 0.728\\
+18 & I1 & EPDS & shannon & -0.131 & 0.088 & -0.299 & 0.046 & 0.069\\
+\addlinespace
+18 & I1 & EPDS & faith & 0.037 & 0.074 & -0.107 & 0.181 & 0.691\\
+18 & I1 & PSS-10 & shannon & -0.108 & 0.082 & -0.268 & 0.056 & 0.093\\
+18 & I1 & PSS-10 & faith & 0.050 & 0.068 & -0.084 & 0.181 & 0.770\\
+18 & I1 & PRAQR2-B & shannon & -0.023 & 0.082 & -0.187 & 0.135 & 0.386\\
+18 & I1 & PRAQR2-B & faith & 0.036 & 0.066 & -0.093 & 0.167 & 0.707\\
+\addlinespace
+18 & I1 & PRAQR2-H & shannon & -0.121 & 0.079 & -0.272 & 0.038 & 0.062\\
+18 & I1 & PRAQR2-H & faith & 0.029 & 0.063 & -0.093 & 0.154 & 0.676\\
+18 & I2 & MS & shannon & -0.038 & 0.029 & -0.094 & 0.018 & 0.092\\
+18 & I2 & MS & faith & 0.027 & 0.027 & -0.024 & 0.079 & 0.845\\
+18 & I2 & STAI & shannon & -0.132 & 0.076 & -0.283 & 0.017 & 0.041\\
+\addlinespace
+18 & I2 & STAI & faith & 0.079 & 0.071 & -0.058 & 0.217 & 0.869\\
+18 & I2 & EPDS & shannon & -0.096 & 0.083 & -0.258 & 0.065 & 0.120\\
+18 & I2 & EPDS & faith & 0.053 & 0.078 & -0.096 & 0.213 & 0.751\\
+18 & I2 & PSS-10 & shannon & -0.057 & 0.078 & -0.212 & 0.092 & 0.229\\
+18 & I2 & PSS-10 & faith & 0.068 & 0.071 & -0.069 & 0.209 & 0.830\\
+\addlinespace
+18 & I2 & PRAQR2-B & shannon & 0.032 & 0.082 & -0.128 & 0.195 & 0.652\\
+18 & I2 & PRAQR2-B & faith & 0.087 & 0.074 & -0.057 & 0.234 & 0.881\\
+18 & I2 & PRAQR2-H & shannon & -0.019 & 0.073 & -0.164 & 0.122 & 0.398\\
+18 & I2 & PRAQR2-H & faith & 0.033 & 0.069 & -0.101 & 0.168 & 0.689\\
+18 & I3 & MS & shannon & 0.016 & 0.030 & -0.044 & 0.075 & 0.697\\
+\addlinespace
+18 & I3 & MS & faith & 0.019 & 0.028 & -0.037 & 0.072 & 0.756\\
+18 & I3 & STAI & shannon & 0.054 & 0.080 & -0.097 & 0.213 & 0.753\\
+18 & I3 & STAI & faith & 0.082 & 0.073 & -0.061 & 0.225 & 0.868\\
+18 & I3 & EPDS & shannon & 0.058 & 0.087 & -0.112 & 0.229 & 0.749\\
+18 & I3 & EPDS & faith & 0.065 & 0.080 & -0.092 & 0.222 & 0.797\\
+\addlinespace
+18 & I3 & PSS-10 & shannon & 0.010 & 0.082 & -0.155 & 0.168 & 0.548\\
+18 & I3 & PSS-10 & faith & -0.001 & 0.074 & -0.144 & 0.145 & 0.495\\
+18 & I3 & PRAQR2-B & shannon & 0.185 & 0.079 & 0.033 & 0.339 & 0.990\\
+18 & I3 & PRAQR2-B & faith & 0.100 & 0.071 & -0.044 & 0.231 & 0.919\\
+18 & I3 & PRAQR2-H & shannon & 0.057 & 0.075 & -0.088 & 0.207 & 0.778\\
+\addlinespace
+18 & I3 & PRAQR2-H & faith & 0.062 & 0.069 & -0.071 & 0.198 & 0.819\\
+18 & I4 & MS & shannon & -0.055 & 0.045 & -0.140 & 0.037 & 0.112\\
+18 & I4 & MS & faith & -0.002 & 0.047 & -0.096 & 0.090 & 0.481\\
+18 & I4 & STAI & shannon & -0.042 & 0.116 & -0.271 & 0.182 & 0.358\\
+18 & I4 & STAI & faith & 0.081 & 0.118 & -0.157 & 0.305 & 0.752\\
+\addlinespace
+18 & I4 & EPDS & shannon & -0.165 & 0.132 & -0.422 & 0.097 & 0.104\\
+18 & I4 & EPDS & faith & -0.073 & 0.136 & -0.340 & 0.196 & 0.291\\
+18 & I4 & PSS-10 & shannon & -0.218 & 0.125 & -0.463 & 0.031 & 0.042\\
+18 & I4 & PSS-10 & faith & -0.046 & 0.129 & -0.299 & 0.206 & 0.362\\
+18 & I4 & PRAQR2-B & shannon & -0.125 & 0.109 & -0.340 & 0.085 & 0.125\\
+\addlinespace
+18 & I4 & PRAQR2-B & faith & -0.092 & 0.113 & -0.317 & 0.124 & 0.204\\
+18 & I4 & PRAQR2-H & shannon & 0.038 & 0.117 & -0.196 & 0.263 & 0.621\\
+18 & I4 & PRAQR2-H & faith & 0.163 & 0.113 & -0.058 & 0.386 & 0.926\\
+32 & I1 & MS & shannon & -0.040 & 0.033 & -0.105 & 0.022 & 0.112\\
+32 & I1 & MS & faith & 0.025 & 0.026 & -0.025 & 0.076 & 0.833\\
+\addlinespace
+32 & I1 & STAI & shannon & -0.125 & 0.085 & -0.293 & 0.041 & 0.074\\
+32 & I1 & STAI & faith & 0.031 & 0.068 & -0.106 & 0.162 & 0.672\\
+32 & I1 & EPDS & shannon & -0.109 & 0.086 & -0.273 & 0.068 & 0.104\\
+32 & I1 & EPDS & faith & 0.045 & 0.069 & -0.088 & 0.180 & 0.746\\
+32 & I1 & PSS-10 & shannon & -0.051 & 0.087 & -0.216 & 0.124 & 0.277\\
+\addlinespace
+32 & I1 & PSS-10 & faith & 0.103 & 0.069 & -0.033 & 0.236 & 0.936\\
+32 & I1 & PRAQR2-B & shannon & -0.021 & 0.090 & -0.194 & 0.156 & 0.407\\
+32 & I1 & PRAQR2-B & faith & 0.056 & 0.071 & -0.081 & 0.199 & 0.789\\
+32 & I1 & PRAQR2-H & shannon & -0.184 & 0.079 & -0.340 & -0.030 & 0.011\\
+32 & I1 & PRAQR2-H & faith & -0.046 & 0.066 & -0.176 & 0.082 & 0.244\\
+\addlinespace
+32 & I2 & MS & shannon & 0.002 & 0.031 & -0.060 & 0.065 & 0.527\\
+32 & I2 & MS & faith & 0.054 & 0.028 & 0.001 & 0.110 & 0.974\\
+32 & I2 & STAI & shannon & -0.039 & 0.086 & -0.202 & 0.132 & 0.326\\
+32 & I2 & STAI & faith & 0.123 & 0.076 & -0.024 & 0.272 & 0.948\\
+32 & I2 & EPDS & shannon & 0.014 & 0.081 & -0.148 & 0.172 & 0.565\\
+\addlinespace
+32 & I2 & EPDS & faith & 0.144 & 0.071 & 0.001 & 0.281 & 0.978\\
+32 & I2 & PSS-10 & shannon & 0.037 & 0.080 & -0.124 & 0.189 & 0.679\\
+32 & I2 & PSS-10 & faith & 0.101 & 0.073 & -0.040 & 0.243 & 0.916\\
+32 & I2 & PRAQR2-B & shannon & 0.044 & 0.086 & -0.124 & 0.209 & 0.696\\
+32 & I2 & PRAQR2-B & faith & 0.098 & 0.078 & -0.056 & 0.248 & 0.896\\
+\addlinespace
+32 & I2 & PRAQR2-H & shannon & -0.122 & 0.076 & -0.272 & 0.024 & 0.051\\
+32 & I2 & PRAQR2-H & faith & -0.016 & 0.070 & -0.152 & 0.121 & 0.411\\
+32 & I3 & MS & shannon & 0.042 & 0.031 & -0.018 & 0.102 & 0.915\\
+32 & I3 & MS & faith & 0.023 & 0.028 & -0.032 & 0.079 & 0.795\\
+32 & I3 & STAI & shannon & 0.143 & 0.081 & -0.019 & 0.300 & 0.960\\
+\addlinespace
+32 & I3 & STAI & faith & 0.056 & 0.075 & -0.088 & 0.205 & 0.776\\
+32 & I3 & EPDS & shannon & 0.124 & 0.084 & -0.036 & 0.296 & 0.931\\
+32 & I3 & EPDS & faith & 0.085 & 0.078 & -0.070 & 0.233 & 0.864\\
+32 & I3 & PSS-10 & shannon & 0.032 & 0.083 & -0.133 & 0.191 & 0.650\\
+32 & I3 & PSS-10 & faith & 0.026 & 0.074 & -0.121 & 0.171 & 0.632\\
+\addlinespace
+32 & I3 & PRAQR2-B & shannon & 0.172 & 0.087 & 0.003 & 0.341 & 0.977\\
+32 & I3 & PRAQR2-B & faith & 0.118 & 0.076 & -0.031 & 0.269 & 0.940\\
+32 & I3 & PRAQR2-H & shannon & 0.032 & 0.078 & -0.123 & 0.183 & 0.665\\
+32 & I3 & PRAQR2-H & faith & 0.026 & 0.071 & -0.111 & 0.162 & 0.646\\
+32 & I4 & MS & shannon & -0.050 & 0.043 & -0.132 & 0.037 & 0.125\\
+\addlinespace
+32 & I4 & MS & faith & -0.014 & 0.045 & -0.101 & 0.075 & 0.381\\
+32 & I4 & STAI & shannon & -0.018 & 0.117 & -0.248 & 0.207 & 0.441\\
+32 & I4 & STAI & faith & 0.051 & 0.118 & -0.174 & 0.290 & 0.673\\
+32 & I4 & EPDS & shannon & -0.133 & 0.119 & -0.355 & 0.111 & 0.132\\
+32 & I4 & EPDS & faith & -0.032 & 0.123 & -0.276 & 0.209 & 0.395\\
+\addlinespace
+32 & I4 & PSS-10 & shannon & -0.218 & 0.118 & -0.444 & 0.015 & 0.032\\
+32 & I4 & PSS-10 & faith & -0.127 & 0.123 & -0.369 & 0.115 & 0.150\\
+32 & I4 & PRAQR2-B & shannon & -0.005 & 0.119 & -0.238 & 0.225 & 0.483\\
+32 & I4 & PRAQR2-B & faith & 0.028 & 0.119 & -0.210 & 0.260 & 0.597\\
+32 & I4 & PRAQR2-H & shannon & -0.049 & 0.120 & -0.292 & 0.180 & 0.337\\
+\addlinespace
+32 & I4 & PRAQR2-H & faith & 0.073 & 0.121 & -0.178 & 0.298 & 0.720\\
+HCN1 & I1 & HCN1 & shannon & -0.037 & 0.099 & -0.230 & 0.159 & 0.352\\
+HCN1 & I1 & HCN1 & faith & -0.041 & 0.075 & -0.190 & 0.102 & 0.292\\
+HCN1 & I2 & HCN1 & shannon & -0.045 & 0.098 & -0.238 & 0.151 & 0.321\\
+HCN1 & I2 & HCN1 & faith & 0.034 & 0.082 & -0.128 & 0.193 & 0.663\\
+\addlinespace
+HCN1 & I3 & HCN1 & shannon & -0.045 & 0.100 & -0.245 & 0.147 & 0.328\\
+HCN1 & I3 & HCN1 & faith & -0.108 & 0.086 & -0.283 & 0.056 & 0.102\\
+HCN1 & I4 & HCN1 & shannon & -0.255 & 0.142 & -0.530 & 0.030 & 0.037\\
+HCN1 & I4 & HCN1 & faith & -0.349 & 0.134 & -0.612 & -0.091 & 0.004\\
+HCN2 & I1 & HCN2 & shannon & 0.027 & 0.099 & -0.175 & 0.214 & 0.606\\
+\addlinespace
+HCN2 & I1 & HCN2 & faith & 0.020 & 0.075 & -0.132 & 0.163 & 0.605\\
+HCN2 & I2 & HCN2 & shannon & 0.002 & 0.097 & -0.187 & 0.195 & 0.510\\
+HCN2 & I2 & HCN2 & faith & 0.043 & 0.081 & -0.121 & 0.197 & 0.702\\
+HCN2 & I3 & HCN2 & shannon & -0.011 & 0.099 & -0.203 & 0.184 & 0.454\\
+HCN2 & I3 & HCN2 & faith & -0.079 & 0.088 & -0.250 & 0.093 & 0.180\\
+\addlinespace
+HCN2 & I4 & HCN2 & shannon & -0.111 & 0.156 & -0.429 & 0.184 & 0.235\\
+HCN2 & I4 & HCN2 & faith & -0.282 & 0.148 & -0.574 & 0.004 & 0.027\\
+HCN3 & I1 & HCN3 & shannon & 0.008 & 0.102 & -0.193 & 0.207 & 0.533\\
+HCN3 & I1 & HCN3 & faith & -0.118 & 0.078 & -0.270 & 0.038 & 0.068\\
+HCN3 & I2 & HCN3 & shannon & -0.152 & 0.096 & -0.343 & 0.035 & 0.059\\
+\addlinespace
+HCN3 & I2 & HCN3 & faith & -0.067 & 0.087 & -0.240 & 0.100 & 0.217\\
+HCN3 & I3 & HCN3 & shannon & 0.024 & 0.100 & -0.169 & 0.222 & 0.595\\
+HCN3 & I3 & HCN3 & faith & -0.086 & 0.090 & -0.256 & 0.093 & 0.170\\
+HCN3 & I4 & HCN3 & shannon & -0.098 & 0.134 & -0.360 & 0.163 & 0.233\\
+HCN3 & I4 & HCN3 & faith & -0.106 & 0.130 & -0.366 & 0.145 & 0.192\\
+\addlinespace
+HCN4 & I1 & HCN4 & shannon & 0.015 & 0.114 & -0.200 & 0.246 & 0.556\\
+HCN4 & I1 & HCN4 & faith & -0.100 & 0.087 & -0.275 & 0.065 & 0.123\\
+HCN4 & I2 & HCN4 & shannon & -0.153 & 0.103 & -0.349 & 0.050 & 0.070\\
+HCN4 & I2 & HCN4 & faith & -0.049 & 0.094 & -0.231 & 0.139 & 0.297\\
+HCN4 & I3 & HCN4 & shannon & 0.068 & 0.100 & -0.127 & 0.261 & 0.753\\
+\addlinespace
+HCN4 & I3 & HCN4 & faith & 0.030 & 0.089 & -0.138 & 0.212 & 0.635\\
+HCN4 & I4 & HCN4 & shannon & -0.117 & 0.148 & -0.395 & 0.189 & 0.210\\
+HCN4 & I4 & HCN4 & faith & -0.103 & 0.138 & -0.376 & 0.163 & 0.222\\
+HCR1 & I1 & HCR1 & shannon & 0.067 & 0.101 & -0.133 & 0.266 & 0.751\\
+HCR1 & I1 & HCR1 & faith & 0.101 & 0.074 & -0.045 & 0.244 & 0.914\\
+\addlinespace
+HCR1 & I2 & HCR1 & shannon & 0.004 & 0.102 & -0.195 & 0.206 & 0.514\\
+HCR1 & I2 & HCR1 & faith & 0.059 & 0.083 & -0.106 & 0.219 & 0.761\\
+HCR1 & I3 & HCR1 & shannon & -0.053 & 0.102 & -0.255 & 0.143 & 0.300\\
+HCR1 & I3 & HCR1 & faith & 0.043 & 0.089 & -0.133 & 0.215 & 0.690\\
+HCR1 & I4 & HCR1 & shannon & 0.209 & 0.165 & -0.113 & 0.539 & 0.898\\
+\addlinespace
+HCR1 & I4 & HCR1 & faith & 0.238 & 0.177 & -0.101 & 0.594 & 0.919\\
+HCR2 & I1 & HCR2 & shannon & -0.110 & 0.093 & -0.286 & 0.078 & 0.116\\
+HCR2 & I1 & HCR2 & faith & -0.018 & 0.069 & -0.152 & 0.119 & 0.395\\
+HCR2 & I2 & HCR2 & shannon & -0.070 & 0.090 & -0.248 & 0.104 & 0.218\\
+HCR2 & I2 & HCR2 & faith & 0.011 & 0.084 & -0.156 & 0.171 & 0.549\\
+\addlinespace
+HCR2 & I3 & HCR2 & shannon & -0.013 & 0.092 & -0.192 & 0.169 & 0.443\\
+HCR2 & I3 & HCR2 & faith & 0.085 & 0.082 & -0.075 & 0.244 & 0.854\\
+HCR2 & I4 & HCR2 & shannon & 0.387 & 0.184 & 0.022 & 0.749 & 0.982\\
+HCR2 & I4 & HCR2 & faith & 0.256 & 0.176 & -0.102 & 0.592 & 0.929\\
+HCR3 & I1 & HCR3 & shannon & 0.056 & 0.096 & -0.138 & 0.238 & 0.719\\
+\addlinespace
+HCR3 & I1 & HCR3 & faith & 0.035 & 0.070 & -0.103 & 0.171 & 0.698\\
+HCR3 & I2 & HCR3 & shannon & 0.070 & 0.091 & -0.103 & 0.252 & 0.785\\
+HCR3 & I2 & HCR3 & faith & 0.046 & 0.079 & -0.110 & 0.203 & 0.719\\
+HCR3 & I3 & HCR3 & shannon & 0.008 & 0.092 & -0.173 & 0.188 & 0.532\\
+HCR3 & I3 & HCR3 & faith & 0.046 & 0.082 & -0.113 & 0.210 & 0.715\\
+\addlinespace
+HCR3 & I4 & HCR3 & shannon & 0.066 & 0.153 & -0.221 & 0.376 & 0.673\\
+HCR3 & I4 & HCR3 & faith & 0.041 & 0.150 & -0.245 & 0.347 & 0.614\\
+HCR4 & I1 & HCR4 & shannon & 0.150 & 0.112 & -0.072 & 0.369 & 0.912\\
+HCR4 & I1 & HCR4 & faith & 0.054 & 0.086 & -0.113 & 0.223 & 0.736\\
+HCR4 & I2 & HCR4 & shannon & 0.117 & 0.104 & -0.087 & 0.320 & 0.870\\
+\addlinespace
+HCR4 & I2 & HCR4 & faith & 0.146 & 0.088 & -0.024 & 0.319 & 0.952\\
+HCR4 & I3 & HCR4 & shannon & 0.121 & 0.101 & -0.084 & 0.312 & 0.885\\
+HCR4 & I3 & HCR4 & faith & 0.082 & 0.090 & -0.099 & 0.256 & 0.820\\
+HCR4 & I4 & HCR4 & shannon & 0.172 & 0.159 & -0.148 & 0.478 & 0.866\\
+HCR4 & I4 & HCR4 & faith & 0.124 & 0.150 & -0.166 & 0.418 & 0.797\\
+\addlinespace
+HCS1 & I1 & HCS1 & shannon & 0.028 & 0.098 & -0.157 & 0.230 & 0.618\\
+HCS1 & I1 & HCS1 & faith & 0.044 & 0.073 & -0.101 & 0.188 & 0.729\\
+HCS1 & I2 & HCS1 & shannon & -0.019 & 0.097 & -0.217 & 0.165 & 0.423\\
+HCS1 & I2 & HCS1 & faith & 0.092 & 0.086 & -0.075 & 0.260 & 0.850\\
+HCS1 & I3 & HCS1 & shannon & -0.060 & 0.095 & -0.249 & 0.120 & 0.263\\
+\addlinespace
+HCS1 & I3 & HCS1 & faith & -0.030 & 0.085 & -0.202 & 0.133 & 0.357\\
+HCS1 & I4 & HCS1 & shannon & -0.084 & 0.153 & -0.381 & 0.216 & 0.292\\
+HCS1 & I4 & HCS1 & faith & -0.156 & 0.153 & -0.453 & 0.148 & 0.156\\
+HCS2 & I1 & HCS2 & shannon & -0.067 & 0.093 & -0.247 & 0.118 & 0.235\\
+HCS2 & I1 & HCS2 & faith & 0.001 & 0.070 & -0.140 & 0.137 & 0.504\\
+\addlinespace
+HCS2 & I2 & HCS2 & shannon & -0.050 & 0.089 & -0.224 & 0.126 & 0.284\\
+HCS2 & I2 & HCS2 & faith & 0.048 & 0.080 & -0.107 & 0.203 & 0.725\\
+HCS2 & I3 & HCS2 & shannon & -0.020 & 0.094 & -0.212 & 0.158 & 0.417\\
+HCS2 & I3 & HCS2 & faith & 0.003 & 0.084 & -0.165 & 0.165 & 0.516\\
+HCS2 & I4 & HCS2 & shannon & 0.120 & 0.170 & -0.212 & 0.455 & 0.756\\
+\addlinespace
+HCS2 & I4 & HCS2 & faith & -0.141 & 0.169 & -0.487 & 0.179 & 0.195\\
+HCS3 & I1 & HCS3 & shannon & 0.051 & 0.096 & -0.140 & 0.237 & 0.706\\
+HCS3 & I1 & HCS3 & faith & -0.050 & 0.072 & -0.192 & 0.090 & 0.243\\
+HCS3 & I2 & HCS3 & shannon & -0.047 & 0.092 & -0.225 & 0.140 & 0.299\\
+HCS3 & I2 & HCS3 & faith & -0.011 & 0.083 & -0.167 & 0.154 & 0.446\\
+\addlinespace
+HCS3 & I3 & HCS3 & shannon & 0.024 & 0.095 & -0.165 & 0.204 & 0.601\\
+HCS3 & I3 & HCS3 & faith & -0.026 & 0.086 & -0.193 & 0.146 & 0.381\\
+HCS3 & I4 & HCS3 & shannon & -0.059 & 0.155 & -0.360 & 0.248 & 0.348\\
+HCS3 & I4 & HCS3 & faith & -0.092 & 0.150 & -0.389 & 0.203 & 0.264\\
+HCS4 & I1 & HCS4 & shannon & 0.081 & 0.112 & -0.134 & 0.304 & 0.769\\
+\addlinespace
+HCS4 & I1 & HCS4 & faith & -0.059 & 0.085 & -0.231 & 0.104 & 0.243\\
+HCS4 & I2 & HCS4 & shannon & -0.059 & 0.101 & -0.265 & 0.131 & 0.276\\
+HCS4 & I2 & HCS4 & faith & 0.044 & 0.086 & -0.121 & 0.213 & 0.697\\
+HCS4 & I3 & HCS4 & shannon & 0.110 & 0.100 & -0.092 & 0.301 & 0.865\\
+HCS4 & I3 & HCS4 & faith & 0.046 & 0.089 & -0.125 & 0.225 & 0.699\\
+\addlinespace
+HCS4 & I4 & HCS4 & shannon & -0.016 & 0.157 & -0.317 & 0.298 & 0.460\\
+HCS4 & I4 & HCS4 & faith & -0.049 & 0.145 & -0.335 & 0.233 & 0.369\\
+\bottomrule
+\insertTableNotes
+\end{longtable}
+\end{ThreePartTable}
+
+\begin{ThreePartTable}
+\begin{TableNotes}
+\item \textit{Note: } 
+\item The stress measurement took place at the time of microbiota sampling (except for the hair derived measures). M = median of the posterior distribution. p = proportion of the distribution larger than zero. HCS = hair cortisol, HCN = hair cortisone, HCR = log-ratio of hair cortisol and cortisone. The number behind the abbreviation indicates that the hair sample reflects the time period of 4-8 weeks postpartum. I1 - I4 = Time point of infant microbiota sampling in chronological order (2, 6 and 12 weeks and 8 months). MS = maternal stress composite score.
+\end{TableNotes}
+\begin{longtable}[t]{lllrrrrr}
+\caption{\label{tab:unnamed-chunk-8}Posterior distribution of the beta coefficients corresponding to the different postnatal stress measures per time point of infant microbiota sampling and alpha diversity index.}\\
+\toprule
+Stress Variable & Sample & Index & M & SD & 95\% HDI lower & 95\% HDI upper & P($\beta \geq 0$)\\
+\midrule
+MS & I1 & shannon & -0.006 & 0.092 & -0.186 & 0.171 & 0.474\\
+MS & I1 & faith & 0.078 & 0.075 & -0.065 & 0.229 & 0.850\\
+STAI & I1 & shannon & -0.061 & 0.094 & -0.237 & 0.132 & 0.261\\
+STAI & I1 & faith & 0.064 & 0.076 & -0.084 & 0.213 & 0.801\\
+EPDS & I1 & shannon & 0.011 & 0.090 & -0.169 & 0.186 & 0.548\\
+\addlinespace
+EPDS & I1 & faith & 0.078 & 0.079 & -0.082 & 0.225 & 0.838\\
+PSS-10 & I1 & shannon & 0.026 & 0.085 & -0.136 & 0.200 & 0.619\\
+PSS-10 & I1 & faith & 0.065 & 0.069 & -0.075 & 0.197 & 0.828\\
+PSAS & I1 & shannon & -0.759 & 0.639 & -1.980 & 0.529 & 0.116\\
+PSAS & I1 & faith & -0.313 & 0.516 & -1.318 & 0.704 & 0.270\\
+\addlinespace
+HCS4 & I1 & shannon & 0.081 & 0.111 & -0.151 & 0.288 & 0.771\\
+HCS4 & I1 & faith & -0.058 & 0.084 & -0.228 & 0.103 & 0.242\\
+HCN4 & I1 & shannon & 0.018 & 0.113 & -0.202 & 0.240 & 0.562\\
+HCN4 & I1 & faith & -0.100 & 0.087 & -0.275 & 0.066 & 0.125\\
+HCR4 & I1 & shannon & 0.150 & 0.113 & -0.069 & 0.373 & 0.911\\
+\addlinespace
+HCR4 & I1 & faith & 0.054 & 0.087 & -0.115 & 0.225 & 0.734\\
+MS & I2 & shannon & -0.040 & 0.086 & -0.206 & 0.129 & 0.320\\
+MS & I2 & faith & -0.011 & 0.077 & -0.162 & 0.140 & 0.444\\
+STAI & I2 & shannon & -0.112 & 0.086 & -0.277 & 0.057 & 0.092\\
+STAI & I2 & faith & -0.028 & 0.079 & -0.186 & 0.126 & 0.352\\
+\addlinespace
+EPDS & I2 & shannon & -0.037 & 0.083 & -0.194 & 0.130 & 0.324\\
+EPDS & I2 & faith & -0.072 & 0.074 & -0.218 & 0.074 & 0.164\\
+PSS-10 & I2 & shannon & 0.031 & 0.077 & -0.122 & 0.181 & 0.656\\
+PSS-10 & I2 & faith & 0.060 & 0.071 & -0.082 & 0.196 & 0.808\\
+PSAS & I2 & shannon & -0.229 & 0.159 & -0.535 & 0.085 & 0.076\\
+\addlinespace
+PSAS & I2 & faith & -0.047 & 0.144 & -0.324 & 0.237 & 0.371\\
+HCS4 & I2 & shannon & -0.058 & 0.101 & -0.258 & 0.137 & 0.281\\
+HCS4 & I2 & faith & 0.046 & 0.087 & -0.122 & 0.219 & 0.697\\
+HCN4 & I2 & shannon & -0.154 & 0.103 & -0.356 & 0.048 & 0.068\\
+HCN4 & I2 & faith & -0.048 & 0.093 & -0.231 & 0.133 & 0.302\\
+\addlinespace
+HCR4 & I2 & shannon & 0.116 & 0.104 & -0.092 & 0.316 & 0.869\\
+HCR4 & I2 & faith & 0.146 & 0.087 & -0.025 & 0.317 & 0.952\\
+MS & I3 & shannon & 0.058 & 0.071 & -0.083 & 0.195 & 0.797\\
+MS & I3 & faith & -0.015 & 0.065 & -0.138 & 0.115 & 0.404\\
+STAI & I3 & shannon & 0.050 & 0.069 & -0.085 & 0.186 & 0.765\\
+\addlinespace
+STAI & I3 & faith & -0.004 & 0.065 & -0.132 & 0.119 & 0.474\\
+EPDS & I3 & shannon & 0.047 & 0.073 & -0.095 & 0.190 & 0.744\\
+EPDS & I3 & faith & -0.028 & 0.067 & -0.158 & 0.105 & 0.334\\
+PSS-10 & I3 & shannon & 0.069 & 0.076 & -0.079 & 0.221 & 0.820\\
+PSS-10 & I3 & faith & -0.014 & 0.069 & -0.147 & 0.123 & 0.423\\
+\addlinespace
+PSAS & I3 & shannon & -0.167 & 0.573 & -1.272 & 0.950 & 0.388\\
+PSAS & I3 & faith & 0.022 & 0.526 & -1.034 & 1.028 & 0.517\\
+HCS4 & I3 & shannon & 0.110 & 0.100 & -0.090 & 0.299 & 0.864\\
+HCS4 & I3 & faith & 0.046 & 0.088 & -0.131 & 0.214 & 0.703\\
+HCN4 & I3 & shannon & 0.070 & 0.099 & -0.137 & 0.253 & 0.760\\
+\addlinespace
+HCN4 & I3 & faith & 0.032 & 0.090 & -0.149 & 0.204 & 0.641\\
+HCR4 & I3 & shannon & 0.120 & 0.100 & -0.076 & 0.316 & 0.882\\
+HCR4 & I3 & faith & 0.081 & 0.090 & -0.096 & 0.257 & 0.822\\
+MS & I4 & shannon & -0.202 & 0.107 & -0.414 & 0.004 & 0.028\\
+MS & I4 & faith & -0.124 & 0.107 & -0.334 & 0.087 & 0.123\\
+\addlinespace
+STAI & I4 & shannon & -0.102 & 0.107 & -0.311 & 0.107 & 0.170\\
+STAI & I4 & faith & -0.059 & 0.108 & -0.265 & 0.161 & 0.296\\
+EPDS & I4 & shannon & -0.247 & 0.107 & -0.458 & -0.036 & 0.011\\
+EPDS & I4 & faith & -0.177 & 0.111 & -0.391 & 0.045 & 0.054\\
+PSS-10 & I4 & shannon & -0.221 & 0.109 & -0.429 & -0.006 & 0.021\\
+\addlinespace
+PSS-10 & I4 & faith & -0.114 & 0.112 & -0.331 & 0.112 & 0.152\\
+PSAS & I4 & shannon & -0.148 & 0.103 & -0.351 & 0.051 & 0.076\\
+PSAS & I4 & faith & -0.121 & 0.104 & -0.327 & 0.082 & 0.123\\
+HCS4 & I4 & shannon & -0.014 & 0.158 & -0.319 & 0.304 & 0.462\\
+HCS4 & I4 & faith & -0.051 & 0.144 & -0.335 & 0.231 & 0.359\\
+\addlinespace
+HCN4 & I4 & shannon & -0.118 & 0.147 & -0.416 & 0.164 & 0.205\\
+HCN4 & I4 & faith & -0.102 & 0.138 & -0.368 & 0.177 & 0.226\\
+HCR4 & I4 & shannon & 0.173 & 0.158 & -0.130 & 0.482 & 0.865\\
+HCR4 & I4 & faith & 0.122 & 0.148 & -0.159 & 0.420 & 0.796\\
+\bottomrule
+\insertTableNotes
+\end{longtable}
+\end{ThreePartTable}
+
+\begin{ThreePartTable}
+\begin{TableNotes}
+\item \textit{Note: } 
+\item The leading "s" indicated phylogenetic Species level. HCS = hair cortisol, HCN = hair cortisone, HCR = log-ratio of hair cortisol and cortisone. The number behind the abbreviation indicated the measured time interval including 23-32 (1), 15-23 (2) and 6-15 weeks of gestation as well as 4-8 weeks postpartum (4). PRAQR2-B = Fear of giving birth. PRAQR2-H = Fear of a handicapped child. MS = maternal stress composite score.
+\end{TableNotes}
+\begin{longtable}[t]{llrr}
+\caption{\label{tab:unnamed-chunk-9}Bacterial species identified in the infant microbiota samples associated with any of the maternal stress variables. Results are based on a multilevel model that was fit to all time points.}\\
+\toprule
+Stress Variable & Feature & Coefficient & q\\
+\midrule
+EPDS & s\_\_Clostridium\_fessum & 0.000 & 0.002\\
+EPDS & s\_\_GGB9627\_SGB15081 & 0.000 & 0.041\\
+EPDS & s\_\_Blautia\_SGB4805 & 0.000 & 0.061\\
+EPDS & s\_\_Intestinimonas\_butyriciproducens & 0.001 & 0.001\\
+EPDS & s\_\_Actinomyces\_graevenitzii & 0.001 & 0.034\\
+\addlinespace
+EPDS & s\_\_Gemmiger\_SGB15299 & -0.003 & 0.041\\
+EPDS & s\_\_Senegalimassilia\_anaerobia & 0.003 & 0.061\\
+EPDS & s\_\_Streptococcus\_parasanguinis & 0.005 & 0.047\\
+EPDS & s\_\_Ruminococcus\_gnavus & 0.019 & 0.027\\
+HCN1 & s\_\_Blautia\_glucerasea & 0.000 & 0.095\\
+\addlinespace
+HCN3 & s\_\_Blautia\_sp\_AF19\_10LB & -0.002 & 0.000\\
+HCN3 & s\_\_Flavonifractor\_plautii & -0.020 & 0.014\\
+HCR1 & s\_\_Alistipes\_finegoldii & -0.002 & 0.010\\
+HCR2 & s\_\_Bacteroides\_fragilis & 0.044 & 0.010\\
+HCR3 & s\_\_Bacteroides\_fragilis & 0.068 & 0.003\\
+\addlinespace
+HCS2 & s\_\_Bacteroides\_fragilis & 0.031 & 0.028\\
+HCS3 & s\_\_Bacteroides\_fragilis & 0.049 & 0.024\\
+HCS4 & s\_\_Streptococcus\_parasanguinis & -0.009 & 0.083\\
+MS & s\_\_Clostridium\_fessum & 0.000 & 0.085\\
+MS & s\_\_Intestinimonas\_butyriciproducens & 0.001 & 0.002\\
+\addlinespace
+MS & s\_\_Actinomyces\_graevenitzii & 0.001 & 0.058\\
+MS & s\_\_Senegalimassilia\_anaerobia & 0.003 & 0.051\\
+MS & s\_\_Bacteroides\_xylanisolvens & 0.005 & 0.057\\
+MS & s\_\_Streptococcus\_parasanguinis & 0.005 & 0.058\\
+PRAQR2-B & s\_\_Phocaeicola\_vulgatus & 0.004 & 0.092\\
+\addlinespace
+PRAQR2-H & s\_\_Prevotella\_copri\_clade\_A & 0.001 & 0.052\\
+PSS-10 & s\_\_Actinomyces\_graevenitzii & 0.001 & 0.048\\
+PSS-10 & s\_\_Intestinimonas\_butyriciproducens & 0.001 & 0.089\\
+PSS-10 & s\_\_Bacteroides\_xylanisolvens & 0.006 & 0.007\\
+STAI & s\_\_Intestinimonas\_butyriciproducens & 0.001 & 0.002\\
+\addlinespace
+STAI & s\_\_Senegalimassilia\_anaerobia & 0.003 & 0.031\\
+\bottomrule
+\insertTableNotes
+\end{longtable}
+\end{ThreePartTable}
+
+\begin{longtable}[t]{llrr}
+\caption{\label{tab:unnamed-chunk-10}Bacterial phyla identified in the infant microbiota samples associated with any of the maternal stress variables. Results are based on a multilevel model that was fit to all time points.}\\
+\toprule
+Stress Variable & Feature & Coefficient & q\\
+\midrule
+EPDS & p\_\_Firmicutes & 0.032 & 0.032\\
+MS & p\_\_Firmicutes & 0.029 & 0.081\\
+PSS-10 & p\_\_Firmicutes & 0.031 & 0.050\\
+\bottomrule
+\multicolumn{4}{l}{\rule{0pt}{1em}\textit{Note: }}\\
+\multicolumn{4}{l}{\rule{0pt}{1em}MS = maternal stress composite score.}\\
+\end{longtable}
+
+\begin{ThreePartTable}
+\begin{TableNotes}
+\item \textit{Note: } 
+\item The column 'Time' indicates when the stress variable was measured during pregnancy. HCS = hair cortisol, HCN = hair cortisone, HCR = log-ratio of hair cortisol and cortisone. The number behind the abbreviation indicates the measured times including 23-32 (1), 15-23 (2) and 6-15 weeks of gestation. I1 - I4 = Time point of infant microbiota sampling in chronological order (2, 6 and 12 weeks and 8 months). PRAQR2-B = Fear of giving birth. MS = maternal stress composite score. The leading 's' indicates phylogenetic Species level.
+\end{TableNotes}
+\begin{longtable}[t]{llllrr}
+\caption{\label{tab:unnamed-chunk-11}Bacterial species identified in the infant microbiota samples associated with any of the maternal stress variables. Results are based on models that were fit per time point as indicated by the "Sample" and "Time" columns.}\\
+\toprule
+Time & Sample & Stress Variable & Feature & Coefficient & q\\
+\midrule
+32 & I3 & HCS3 & s\_\_Bacteroides\_fragilis & 0.056 & 0.062\\
+32 & I2 & HCS3 & s\_\_Bacteroides\_fragilis & 0.096 & 0.041\\
+32 & I2 & HCS2 & s\_\_Bacteroides\_thetaiotaomicron & -0.034 & 0.074\\
+32 & I3 & HCS2 & s\_\_Bacteroides\_fragilis & 0.037 & 0.075\\
+32 & I2 & HCS2 & s\_\_Bacteroides\_fragilis & 0.068 & 0.013\\
+\addlinespace
+32 & I3 & HCN3 & s\_\_Faecalicatena\_contorta & -0.002 & 0.000\\
+32 & I2 & HCN3 & s\_\_Odoribacter\_splanchnicus & -0.007 & 0.094\\
+32 & I4 & HCN3 & s\_\_Blautia\_sp\_AF19\_10LB & -0.010 & 0.000\\
+32 & I2 & HCN3 & s\_\_Bacteroides\_xylanisolvens & -0.038 & 0.022\\
+32 & I2 & HCN3 & s\_\_Flavonifractor\_plautii & -0.039 & 0.022\\
+\addlinespace
+32 & I4 & HCN1 & s\_\_Sutterella\_wadsworthensis & -0.023 & 0.096\\
+32 & I3 & EPDS & s\_\_Intestinimonas\_butyriciproducens & 0.000 & 0.013\\
+32 & I3 & EPDS & s\_\_Roseburia\_intestinalis & 0.002 & 0.013\\
+32 & I3 & EPDS & s\_\_Actinomyces\_graevenitzii & 0.002 & 0.047\\
+32 & I4 & EPDS & s\_\_Parabacteroides\_merdae & 0.002 & 0.080\\
+\addlinespace
+32 & I3 & MS & s\_\_Intestinimonas\_butyriciproducens & 0.000 & 0.013\\
+32 & I3 & MS & s\_\_Roseburia\_intestinalis & 0.001 & 0.013\\
+32 & I3 & MS & s\_\_Actinomyces\_graevenitzii & 0.001 & 0.020\\
+32 & I4 & MS & s\_\_Parabacteroides\_merdae & 0.001 & 0.095\\
+18 & I3 & PRAQR2-B & s\_\_Intestinimonas\_butyriciproducens & 0.000 & 0.059\\
+\addlinespace
+18 & I3 & PRAQR2-B & s\_\_Clostridia\_unclassified\_SGB4121 & 0.001 & 0.059\\
+18 & I3 & PRAQR2-B & s\_\_Roseburia\_intestinalis & 0.001 & 0.059\\
+32 & I3 & PRAQR2-B & s\_\_Actinomyces\_graevenitzii & 0.002 & 0.067\\
+18 & I3 & PRAQR2-B & s\_\_Actinomyces\_graevenitzii & 0.003 & 0.000\\
+32 & I4 & HCR3 & s\_\_Intestinibacter\_bartlettii & -0.003 & 0.001\\
+\addlinespace
+32 & I4 & HCR3 & s\_\_Cutibacterium\_avidum & -0.006 & 0.000\\
+32 & I3 & HCR3 & s\_\_Bacteroides\_fragilis & 0.069 & 0.044\\
+32 & I2 & HCR3 & s\_\_Bacteroides\_fragilis & 0.138 & 0.004\\
+32 & I3 & HCR2 & s\_\_Bacteroides\_fragilis & 0.051 & 0.023\\
+32 & I2 & HCR2 & s\_\_Bacteroides\_fragilis & 0.093 & 0.005\\
+\addlinespace
+32 & I4 & HCR1 & s\_\_Alistipes\_finegoldii & -0.010 & 0.011\\
+32 & I3 & STAI & s\_\_Intestinimonas\_butyriciproducens & 0.000 & 0.003\\
+32 & I3 & STAI & s\_\_Roseburia\_intestinalis & 0.002 & 0.003\\
+32 & I4 & STAI & s\_\_Parabacteroides\_merdae & 0.002 & 0.038\\
+32 & I3 & STAI & s\_\_Actinomyces\_graevenitzii & 0.003 & 0.005\\
+\bottomrule
+\insertTableNotes
+\end{longtable}
+\end{ThreePartTable}
+
+\newpage
+
+\section{Supplementary Figures}\label{supplementary-figures}
+
+\begin{figure}
+\includegraphics[width=0.8\linewidth]{../fig/flowchart} \caption{Flow chart SMILEY participants.}\label{fig:unnamed-chunk-12}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{supplement1_files/figure-latex/unnamed-chunk-13-1.pdf}
+\caption{Pearson correlations between the stress variables at the time
+points of maternal microbiota sampling. If the corelation was
+significant, the coefficient estimate is shown in the tile, otherwise
+not. PRAQR2-H = fear of a handicapped child. PRAQR2-B = fear of giving
+birth. HCS = hair cortisol, HCN = hair cortisone, HCR = log-ratio of
+hair cortisol and cortisone. The measured times of hair cortisol and
+cortisone include 6-15 (1), 15-23 (2) and 23-32 (3) weeks of gestation
+as well as 4-8 weeks postpartum (4).}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{supplement1_files/figure-latex/unnamed-chunk-14-1.pdf}
+\caption{Pearson correlations between the stress variables at the time
+points of infant microbiota sampling. If the corelation was significant,
+the coefficient estimate is shown in the tile, otherwise not. PRAQR2-H =
+fear of a handicapped child. PRAQR2-B = fear of giving birth. HCS = hair
+cortisol, HCN = hair cortisone, HCR = log-ratio of hair cortisol and
+cortisone. The measured times of hair cortisol and cortisone include
+6-15 (1), 15-23 (2) and 23-32 (3) weeks of gestation as well as 4-8
+weeks postpartum (4).}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=1\linewidth]{../fig/dag_mother} \caption{Directed acyclic graph depicting the assumptions underlying the analyses for the maternal microbiota samples. pBMI = pre-pregnancy BMI. Activity = Pregnancy Physical Activity Questionnaire. Diet = Dutch Healthy Diet index.}\label{fig:unnamed-chunk-15}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=1\linewidth]{../fig/dag_infant} \caption{Directed acyclic graph depicting the assumptions underlying the analyses for the infant microbiota samples. Note that for analyses that use prenatal stress the direction of the arrow between gestational age and maternal stress reverses.}\label{fig:unnamed-chunk-16}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{supplement1_files/figure-latex/unnamed-chunk-17-1.pdf}
+\caption{Visualization of beta diversity of all maternal samples using
+either Aitchison distance (A) or Bray-Curtis similarity (B). Samples
+were taken at 18 (M1) and 32 (M2) weeks of pregnancy as well as 8 months
+postpartum (M3).}
+\end{figure}
+
+\newpage
+
+\section*{References}\label{references}
+\addcontentsline{toc}{section}{References}
+
+\phantomsection\label{refs}
+\begin{CSLReferences}{1}{0}
+\bibitem[\citeproctext]{ref-abubuckerMetabolicReconstructionMetagenomic2012}
+Abubucker, S., Segata, N., Goll, J., Schubert, A. M., Izard, J.,
+Cantarel, B. L., Rodriguez-Mueller, B., Zucker, J., Thiagarajan, M.,
+Henrissat, B., White, O., Kelley, S. T., Methé, B., Schloss, P. D.,
+Gevers, D., Mitreva, M., \& Huttenhower, C. (2012). Metabolic
+{Reconstruction} for {Metagenomic Data} and {Its Application} to the
+{Human Microbiome}. \emph{PLoS Computational Biology}, \emph{8}(6),
+e1002358. \url{https://doi.org/10.1371/journal.pcbi.1002358}
+
+\bibitem[\citeproctext]{ref-caspiMetaCycDatabaseMetabolic2016}
+Caspi, R., Billington, R., Ferrer, L., Foerster, H., Fulcher, C. A.,
+Keseler, I. M., Kothari, A., Krummenacker, M., Latendresse, M., Mueller,
+L. A., Ong, Q., Paley, S., Subhraveti, P., Weaver, D. S., \& Karp, P. D.
+(2016). The {MetaCyc} database of metabolic pathways and enzymes and the
+{BioCyc} collection of pathway/genome databases. \emph{Nucleic Acids
+Research}, \emph{44}(D1), D471--D480.
+\url{https://doi.org/10.1093/nar/gkv1164}
+
+\bibitem[\citeproctext]{ref-huangMetaRefPangenomicDatabase2014}
+Huang, K., Brady, A., Mahurkar, A., White, O., Gevers, D., Huttenhower,
+C., \& Segata, N. (2014). {MetaRef}: A pan-genomic database for
+comparative and community microbial genomics. \emph{Nucleic Acids
+Research}, \emph{42}(D1), D617--D624.
+\url{https://doi.org/10.1093/nar/gkt1078}
+
+\bibitem[\citeproctext]{ref-suzekUniRefClustersComprehensive2015}
+Suzek, B. E., Wang, Y., Huang, H., McGarvey, P. B., Wu, C. H., \& the
+UniProt Consortium. (2015). {UniRef} clusters: A comprehensive and
+scalable alternative for improving sequence similarity searches.
+\emph{Bioinformatics}, \emph{31}(6), 926--932.
+\url{https://doi.org/10.1093/bioinformatics/btu739}
+
+\bibitem[\citeproctext]{ref-theuniprotconsortiumUniProtUniversalProtein2023}
+The UniProt Consortium, Bateman, A., Martin, M.-J., Orchard, S.,
+Magrane, M., Ahmad, S., Alpi, E., Bowler-Barnett, E. H., Britto, R.,
+Bye-A-Jee, H., Cukura, A., Denny, P., Dogan, T., Ebenezer, T., Fan, J.,
+Garmiri, P., Da Costa Gonzales, L. J., Hatton-Ellis, E., Hussein, A.,
+\ldots{} Zhang, J. (2023). {UniProt}: The {Universal Protein
+Knowledgebase} in 2023. \emph{Nucleic Acids Research}, \emph{51}(D1),
+D523--D531. \url{https://doi.org/10.1093/nar/gkac1052}
+
+\bibitem[\citeproctext]{ref-truongMetaPhlAn2EnhancedMetagenomic2015}
+Truong, D. T., Franzosa, E. A., Tickle, T. L., Scholz, M., Weingart, G.,
+Pasolli, E., Tett, A., Huttenhower, C., \& Segata, N. (2015).
+{MetaPhlAn2} for enhanced metagenomic taxonomic profiling. \emph{Nature
+Methods}, \emph{12}(10), 902--903.
+\url{https://doi.org/10.1038/nmeth.3589}
+
+\end{CSLReferences}
+
+\end{document}

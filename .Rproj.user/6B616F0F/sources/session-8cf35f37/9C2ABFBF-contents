@@ -1,0 +1,400 @@
+---
+output:
+  pdf_document:
+    keep_tex: true
+header-includes:
+  - \usepackage[utf8]{inputenc}
+  - \usepackage{textgreek}
+  - \usepackage{amsmath}
+  - \usepackage{caption}
+  - \captionsetup[table]{name=Table S, labelfont=bf, labelsep=colon, singlelinecheck=off, skip=0pt}
+  - \captionsetup[figure]{name=Figure S, labelfont=bf, labelsep=colon, singlelinecheck=off, skip=0pt}
+  - \DeclareCaptionLabelFormat{custom}{#1#2}
+  - \captionsetup[table]{labelformat=custom}
+  - \captionsetup[figure]{labelformat=custom}
+  
+csl               : "bib/apa.csl"
+bibliography      : "bib/final.bib"
+---
+
+```{r warning = FALSE, message = FALSE, echo = FALSE}
+library(here)
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(knitr)
+library(tidyverse)
+library(patchwork)
+library(here)
+opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+```
+
+
+# Supplemenraty Methods
+
+
+
+## Microbial DNA extraction
+
+DNA was extracted from feces using the ZymoBIOMICS DNA 96 Magbead kit (ZY-D4302, Zymo Research) and an automated extraction robot, the Kingfisher Flex Purification System. DNA concentration was assessed using a fluorometer (Infinite F200, Tecan) with the Quant-iT™ dsDNA Broad-Range Assay Kit (VXQ33130, Invitrogen). A liquid handler (Biomek i7 Automated Workstation) was used to perform the in-house optimized Nextera XT Library preparation (FC-131-1096, Illumina). In summary, 0.25 ng of genomic DNA was used as a template for the library preparation. A tagmentation step was carried out at 55 degrees Celsius for 5 minutes using a transposome to add Illumina adapters, creating fragments of approximately 300 bp. The tagmented DNA with the Illumina adapter was then employed as a template for PCR amplification and to add unique index primers. The PCR protocol included 72°C for 3 minutes, 95°C for 30 seconds and 12 cycles ofthe following: 95°C for 10 seconds, 55°C for 30 seconds, 72°C for 30 seconds, 72°C for 5 minutes and hold at 10°C.
+ 
+The PCR products were purified using Agencourt© AMPure® XP (A63882 Becker Coulter). DNA was measured using the fluorometer ( Infinite F200 Pro Tecan) and fluorometric analysis (Quant-iT™ dsDNA High Sensitivity, Invitrogen). The purified PCR products were equimolarly pooled, followed by sequencing on the Novaseq 6000 (Illumina) for a minimum of 1500 Mb per sample. FASTQ read sequence files were generated using bcl2fastq version 2.20 (Illumina). Initial quality assessment was based on data passing the Illumina Chastity filtering. Subsequently, reads containing PhiX control signal were removed using by aligning to the PhiX reference sequence (Bowtie2.2.6) and taking the unaligned reads. In addition, reads containing (partial) adapters were clipped (up to a minimum read length of 50bp) by using fastq-mcf from the ea-utils package v1.04.807. The second quality assessment was based on the remaining reads using the FASTQC quality control tool version 0.11.8. 
+
+## Microbial taxonomic profiling
+
+MetaPhlAn [@truongMetaPhlAn2EnhancedMetagenomic2015] v4.0 was used to conduct taxonomic profiling of the metagenomic samples. This tool uses a library of clade-specific markers to provide quantification at species level for microbial entities, including bacteria, archaea, viruses, and eukaryotes. The default settings were applied when running MetaPhlAn. HUMAnN3 [@abubuckerMetabolicReconstructionMetagenomic2012] v3.0 was used to perform functional profiling. When provided with an input metagenome, HUMAnN3 generates a sample-specific reference database, which is constructed by concatenating and indexing the pangenomes of species identified by  MetaPhlAn in the sample. Pangenomes refer to pre-clustered and pre-annotated catalogues of open reading frames that are found across isolated genomes from a particular species [@huangMetaRefPangenomicDatabase2014]. Subsequently, using HUMAnN3, sample reads were mapped against this database to quantify the presence and abundance of genes in a species-stratified manner. Unmapped reads were further used in a translated search against UniRef90 [@suzekUniRefClustersComprehensive2015] to include abundances of gene families that are taxonomically unclassified but functionally distinct. Lastly, HUMAnN3 reconstructed metabolic pathway abundance, to determine community-total, species-stratified, and unclassified gene family abundance. This reconstruction was based on the subset of gene families annotated to metabolic reactions, based on reaction and pathway definitions from MetaCyc [@caspiMetaCycDatabaseMetabolic2016]. Enzyme abundances at the level-4 Enzyme Commission (EC) categories were further computed by summing the abundances of individual gene families annotated to each EC number. The annotations were based on UniRef90-EC annotations obtained from UniProt [@theuniprotconsortiumUniProtUniversalProtein2023]. A phylogenetic tree was obtained using the chocophlan database *mpa_vJan21_CHOCOPhlAnSGB_202103* (obtained from https://github.com/biobakery/MetaPhlAn/blob/master/metaphlan/utils/mpa_vJan21_CHOCOPhlAnSGB_202103.nwk).
+
+\newpage
+
+
+# Supplementary Tables
+
+```{r}
+load(here("data/rdata/tables.Rds"))
+cap <- "Number of stool samples per time point."
+kable(tbl2, caption = cap)
+
+# how many do have complete TS?
+#  i          1     1
+# 2 i          2     8
+# 3 i          3    43
+# 4 i          4    92
+# 5 m          1     4
+# 6 m          2    50
+# 7 m          3    97
+```
+
+
+
+
+
+
+```{r}
+load(here("data/rdata/daa_tbl_1.Rds"))
+cap <- 'Bacterial species differentially abundant between maternal samples collected at 32 weeks of pregnancy and 8 months postpartum.'
+n <- 'The leading "s" indicates phylogenetic Species level.'
+filter(daa_tbl_1, q <= 0.1) %>%
+  arrange(abs(Coefficient)) %>%
+  mutate( Feature = str_extract(Feature, "s__.*")) %>%
+  kable(caption = cap) %>%
+  footnote(general = n)
+```
+
+
+\newpage
+
+
+```{r}
+cap <- "Posterior distribution of the beta coefficients corresponding to the different prenatal and postnatal stress measures per time point and alpha diversity index per maternal sample."
+n <- "M = median of the posterior distribution. HCS = hair cortisol, HCN = hair cortisone, HCR = log-ratio of hair cortisol and cortisone and the measured times include 23-32 (1), 15-23 (2) and 6-15 weeks of gestation as well as 4-8 weeks postpartum (4). M1 - M3 = Time point of maternal microbiota sampling in chronological order (18 and 32 weeks of gestation and 8 months postpartum). PRAQR2-B = Fear of giving birth. PRAQR2-H = Fear of a handicapped child. MS = maternal stress composite score."
+load(here("data/rdata/bm_supp.Rds"))
+bm_supp %>%
+  mutate(
+    Sample = ifelse(str_detect(parameter, "tt2"), "M2", ifelse(
+    str_detect(parameter, "tt3"), "M3", "M1")),
+    `Stress Variable` = ifelse(stress == "praqr_handicap", "PRAQR2-H", ifelse(
+      stress == "praqr_birth", "PRAQR2-B", ifelse(
+        (stress == "cortisol" & Sample == "M1"), "HCS2", ifelse(
+          (stress == "cortisol" & Sample == "M2"), "HCS3", ifelse(
+            (stress == "cortisol" & Sample == "M3"), "HCS4", ifelse(
+        (stress == "cortisone" & Sample == "M1"), "HCN2", ifelse(
+          (stress == "cortisone" & Sample == "M2"), "HCN3", ifelse(
+            (stress == "cortisone" & Sample == "M3"), "HCN4",ifelse(
+        (stress == "ratio" & Sample == "M1"), "HCR2", ifelse(
+          (stress == "ratio" & Sample == "M2"), "HCR3", ifelse(
+            (stress == "ratio" & Sample == "M3"), "HCR4", ifelse(
+              parameter == "b_psas", "PSAS", str_to_upper(stress))))))))))))),
+    `Stress Variable` = ifelse(parameter == "b_psas", "PSAS", `Stress Variable`)
+  ) %>%
+  select("Stress Variable", Sample, Index = alpha, M = m, SD = sd, 
+  "95% HDI lower" = lower,
+  "95% HDI upper" = upper,
+  "P($\\beta \\geq 0$)" = p
+  ) %>%
+  kable(
+    caption = cap, 
+    escape = FALSE,
+
+    ) %>%
+  footnote(general = n, threeparttable = TRUE)
+
+    # col.names = c("Stress Variable", "Sample", "Index", "M", "SD",
+    #                        "95% HDI lower",
+    #                        "95% HDI upper",
+    #                        "$P(\\beta \\\\geq 0)$")
+```
+
+
+```{r}
+load(here("data/rdata/daa_tbl_2.Rds"))
+cap <- 'Bacterial species identified in the maternal microbiota samples associated with any of the maternal stress variables. Results are based on a multilevel model fit to all time points.'
+n <- 'The leading "s" indicates phylogenetic Species level.'
+filter(daa_tbl_2, q <= 0.1) %>%
+  mutate(`Stress Variable` = ifelse(`Stress Variable` == "pss", "PSS-10", str_to_upper(`Stress Variable`)), 
+         Feature = str_extract(Feature, "s__.*")) %>%
+  select(`Stress Variable`, everything()) %>%
+  kable(caption = cap) %>% 
+  footnote(general = n, threeparttable = TRUE)
+```
+
+
+```{r}
+load(here("data/rdata/daa_tbl_3.Rds"))
+cap <- 'Bacterial species identified in the maternal microbiota samples associated with any of the maternal stress variables. Results are based on models fit per maternal microbiota sampling time point.'
+n <- 'The leading "s" indicates phylogenetic Species level. HCN3 = Hair cortisone reflecting cortisone levels between 23 and 32 weeks of pregnancy.'
+filter(daa_tbl_3, q <= 0.1) %>%
+  mutate(
+    `Stress Variable` = "HCN3", Sample = "M2",
+    Feature = str_extract(Feature, "s__.*")
+    ) %>%
+  select("Stress Variable", Sample, Feature, Coefficient, q) %>%
+  kable(caption = cap, escape = TRUE) %>%
+  footnote(general = n, threeparttable = TRUE)
+```
+
+
+
+
+
+```{r}
+load(here("data/rdata/b_stress_prenatal_i.Rds"))
+cap <- "Posterior distribution of the beta coefficients corresponding to the different prenatal stress measures per time point and alpha diversity index per infant sample."
+n <- "M = median of the posterior distribution. p = proportion of the posterior distribution larger than zero. The column 'Time' indicates when the stress variable was measured during pregnancy or which period cortisol and cortisone were measured in, whereby HCS = hair cortisol, HCN = hair cortisone, HCR = log-ratio of hair cortisol and cortisone and the measured times include 23-32 (1), 15-23 (2) and 6-15 weeks of gestation as well as 4-8 weeks postpartum (4). I1 - I4 = Time point of infant microbiota sampling in chronological order (2, 6 and 12 weeks and 8 months). PRAQR2-B = Fear of giving birth. PRAQR2-H = Fear of a handicapped child. MS = maternal stress composite score."
+mutate(
+  b,
+  infant_time = ifelse(infant_time == 2, "I1", ifelse(
+    infant_time == 6, "I2", ifelse(
+      infant_time == 12, "I3", ifelse(
+        infant_time == 32, "I4", NA))))) %>%  
+  select(Sample = infant_time, "Time" = mother_time, Index = alpha, "Stress Variable" = stress, M = m, SD = sd, "95% HDI lower" = lower, "95% HDI upper" = upper, "P($\\beta \\geq 0$)" = p) %>%
+  mutate(`Stress Variable` = ifelse(
+  `Stress Variable` == "cortisol_g1", "HCS3", ifelse(
+    `Stress Variable` == "cortisol_g2", "HCS2", ifelse(
+      `Stress Variable`== "cortisol_g3", "HCS1", ifelse(
+  `Stress Variable` == "cortisone_g1", "HCN3", ifelse(
+    `Stress Variable` == "cortisone_g2", "HCN2", ifelse(
+      `Stress Variable`== "cortisone_g3", "HCN1",ifelse(
+  `Stress Variable` == "ratio_g1", "HCR3", ifelse(
+    `Stress Variable` == "ratio_g2", "HCR2", ifelse(
+      `Stress Variable`== "ratio_g3", "HCR1",ifelse(
+  `Stress Variable` == "cortisol_pp", "HCS4", ifelse(
+    `Stress Variable` == "cortisone_pp", "HCN4", ifelse(
+      `Stress Variable`== "ratio_pp", "HCR4", str_to_upper(`Stress Variable`) 
+    )))))))))))),
+    `Stress Variable` = ifelse(
+        `Stress Variable`== "PRAQR_BIRTH", "PRAQR2-B", ifelse(
+          `Stress Variable`== "PRAQR_HANDICAP", "PRAQR2-H", ifelse(
+            `Stress Variable` == "PSS", "PSS-10", `Stress Variable`))),
+  `Time` = ifelse(`Time` == "t1", "18", ifelse(
+    `Time` == "t2", "32", `Stress Variable`))
+  ) %>%
+  select("Time", Sample, `Stress Variable`, Index, everything()) %>%
+  arrange(`Time`, Sample) %>%
+    kable(cap = cap) %>%
+  footnote(general = n, threeparttable = TRUE)
+```
+
+```{r}
+load(here("data/rdata/b_stress_ad_i.Rds"))
+cap <- "Posterior distribution of the beta coefficients corresponding to the different postnatal stress measures per time point of infant microbiota sampling and alpha diversity index."
+n <- "The stress measurement took place at the time of microbiota sampling (except for the hair derived measures). M = median of the posterior distribution. p = proportion of the distribution larger than zero. HCS = hair cortisol, HCN = hair cortisone, HCR = log-ratio of hair cortisol and cortisone. The number behind the abbreviation indicates that the hair sample reflects the time period of 4-8 weeks postpartum. I1 - I4 = Time point of infant microbiota sampling in chronological order (2, 6 and 12 weeks and 8 months). MS = maternal stress composite score."
+rename(b, infant_time = t) %>%
+  mutate(
+    infant_time = str_replace(infant_time, "t", "I")
+    ) %>%  
+  select(Sample = infant_time, Index = alpha, "Stress Variable" = stress, M = m, SD = sd, "95% HDI lower" = lower, "95% HDI upper" = upper, "P($\\beta \\geq 0$)" = p) %>%
+  mutate(`Stress Variable` = ifelse(
+  `Stress Variable` == "cortisol_g1", "HCS3", ifelse(
+    `Stress Variable` == "cortisol_g2", "HCS2", ifelse(
+      `Stress Variable`== "cortisol_g3", "HCS1", ifelse(
+  `Stress Variable` == "cortisone_g1", "HCN3", ifelse(
+    `Stress Variable` == "cortisone_g2", "HCN2", ifelse(
+      `Stress Variable`== "cortisone_g3", "HCN1",ifelse(
+  `Stress Variable` == "ratio_g1", "HCR3", ifelse(
+    `Stress Variable` == "ratio_g2", "HCR2", ifelse(
+      `Stress Variable`== "ratio_g3", "HCR1",ifelse(
+  `Stress Variable` == "cortisol_pp", "HCS4", ifelse(
+    `Stress Variable` == "cortisone_pp", "HCN4", ifelse(
+      `Stress Variable`== "ratio_pp", "HCR4", str_to_upper(`Stress Variable`) 
+    )))))))))))),
+    `Stress Variable` = ifelse(
+        `Stress Variable`== "PRAQR_BIRTH", "PRAQR2-B", ifelse(
+          `Stress Variable`== "PRAQR_HANDICAP", "PRAQR2-H", ifelse(
+            `Stress Variable` == "PSS", "PSS-10", `Stress Variable`)))
+  ) %>%
+  select(`Stress Variable`, Sample, everything()) %>%
+  arrange(Sample) %>%
+    kable(cap = cap) %>%
+  footnote(general = n, threeparttable = TRUE)
+```
+
+
+
+
+
+
+```{r}
+load(here("data/rdata/i_daa_tbl.Rds"))
+cap <- 'Bacterial species identified in the infant microbiota samples associated with any of the maternal stress variables. Results are based on a multilevel model that was fit to all time points.'
+n <- 'The leading "s" indicated phylogenetic Species level. HCS = hair cortisol, HCN = hair cortisone, HCR = log-ratio of hair cortisol and cortisone. The number behind the abbreviation indicated the measured time interval including 23-32 (1), 15-23 (2) and 6-15 weeks of gestation as well as 4-8 weeks postpartum (4). PRAQR2-B = Fear of giving birth. PRAQR2-H = Fear of a handicapped child. MS = maternal stress composite score.'
+
+filter(daa_tbl, q <= 0.1) %>%
+  mutate(`Stress Variable` = ifelse(
+    `Stress Variable` == "cortisol_g1", "HCS3", ifelse(
+      `Stress Variable` == "cortisol_g2", "HCS2", ifelse(
+        `Stress Variable`== "cortisol_g3", "HCS1", ifelse(
+    `Stress Variable` == "cortisone_g1", "HCN3", ifelse(
+      `Stress Variable` == "cortisone_g2", "HCN2", ifelse(
+        `Stress Variable`== "cortisone_g3", "HCN1",ifelse(
+    `Stress Variable` == "ratio_g1", "HCR3", ifelse(
+      `Stress Variable` == "ratio_g2", "HCR2", ifelse(
+        `Stress Variable`== "ratio_g3", "HCR1",ifelse(
+    `Stress Variable` == "cortisol_pp", "HCS4", ifelse(
+      `Stress Variable` == "cortisone_pp", "HCN4", ifelse(
+        `Stress Variable`== "ratio_pp", "HCR4", str_to_upper(`Stress Variable`))))))))))))),
+    
+    `Stress Variable` = ifelse(
+      `Stress Variable`== "PRAQ_FEAR_BIRTH_G", "PRAQR2-B", ifelse(
+        `Stress Variable`== "PRAQ_WORRIES_HANDICAP_G", "PRAQR2-H", ifelse(
+          `Stress Variable` == "PSS", "PSS-10", `Stress Variable`))),
+    Feature = str_extract(Feature, "s__.*")
+    ) %>%
+  arrange(`Stress Variable`, abs(Coefficient), q) %>%
+  kable(caption = cap) %>% 
+  footnote(general = n, threeparttable = TRUE)
+```
+
+```{r}
+load(here("data/rdata/i_daa_tbl_p.Rds"))
+cap <- 'Bacterial phyla identified in the infant microbiota samples associated with any of the maternal stress variables. Results are based on a multilevel model that was fit to all time points.'
+
+n <- "MS = maternal stress composite score."
+
+filter(daa_tbl, q <= 0.1) %>%
+  mutate(`Stress Variable` = ifelse(
+    `Stress Variable` == "cortisol_g1", "HCS3", ifelse(
+      `Stress Variable` == "cortisol_g2", "HCS2", ifelse(
+        `Stress Variable`== "cortisol_g3", "HCS1", ifelse(
+    `Stress Variable` == "cortisone_g1", "HCN3", ifelse(
+      `Stress Variable` == "cortisone_g2", "HCN2", ifelse(
+        `Stress Variable`== "cortisone_g3", "HCN1",ifelse(
+    `Stress Variable` == "ratio_g1", "HCR3", ifelse(
+      `Stress Variable` == "ratio_g2", "HCR2", ifelse(
+        `Stress Variable`== "ratio_g3", "HCR1",ifelse(
+    `Stress Variable` == "cortisol_pp", "HCS4", ifelse(
+      `Stress Variable` == "cortisone_pp", "HCN4", ifelse(
+        `Stress Variable`== "ratio_pp", "HCR4", str_to_upper(`Stress Variable`))))))))))))),
+    
+  `Stress Variable` = ifelse(
+        `Stress Variable`== "PRAQR_BIRTH", "PRAQR2-B", ifelse(
+          `Stress Variable`== "PRAQR_WORRIES_HANDICAP", "PRAQR2-H", ifelse(
+            `Stress Variable` == "PSS", "PSS-10", `Stress Variable`)))
+    ) %>%
+  arrange(`Stress Variable`, abs(Coefficient), q) %>%
+  kable(caption = cap) %>%
+  footnote(general = n)
+```
+
+```{r}
+load(here("data/rdata/i_daa_tbl3.Rds"))
+cap <- 'Bacterial species identified in the infant microbiota samples associated with any of the maternal stress variables. Results are based on models that were fit per time point as indicated by the "Sample" and "Time" columns.'
+
+n <- "The column 'Time' indicates when the stress variable was measured during pregnancy. HCS = hair cortisol, HCN = hair cortisone, HCR = log-ratio of hair cortisol and cortisone. The number behind the abbreviation indicates the measured times including 23-32 (1), 15-23 (2) and 6-15 weeks of gestation. I1 - I4 = Time point of infant microbiota sampling in chronological order (2, 6 and 12 weeks and 8 months). PRAQR2-B = Fear of giving birth. MS = maternal stress composite score. The leading 's' indicates phylogenetic Species level."
+
+
+filter(daa_tbl_3, q <= 0.1) %>%
+  arrange(`Stress Variable`, abs(Coefficient), q) %>%
+  mutate(`Stress Variable` = ifelse(
+  `Stress Variable` == "cortisol_g1", "HCS3", ifelse(
+    `Stress Variable` == "cortisol_g2", "HCS2", ifelse(
+      `Stress Variable`== "cortisol_g3", "HCS1", ifelse(
+  `Stress Variable` == "cortisone_g1", "HCN3", ifelse(
+    `Stress Variable` == "cortisone_g2", "HCN2", ifelse(
+      `Stress Variable`== "cortisone_g3", "HCN1",ifelse(
+  `Stress Variable` == "ratio_g1", "HCR3", ifelse(
+    `Stress Variable` == "ratio_g2", "HCR2", ifelse(
+      `Stress Variable`== "ratio_g3", "HCR1",ifelse(
+  `Stress Variable` == "cortisol_pp", "HCS4", ifelse(
+    `Stress Variable` == "cortisone_pp", "HCN4", ifelse(
+      `Stress Variable`== "ratio_pp", "HCR4", str_to_upper(`Stress Variable`))))))))))))),
+  `Stress Variable` = ifelse(
+        `Stress Variable`== "PRAQR_BIRTH", "PRAQR2-B", ifelse(
+          `Stress Variable`== "PRAQR_WORRIES_HANDICAP", "PRAQR2-H", ifelse(
+            `Stress Variable` == "PSS", "PSS-10", `Stress Variable`))),
+  Sample = str_replace(it, "t", "I"),
+  `Time` = ifelse(mt == "t1", "18", ifelse(mt == "t2", "32", ifelse(mt == "t3", "34", mt))),
+  Feature = str_extract(Feature, "s__.*")
+  ) %>%
+  select("Time", Sample, "Stress Variable", "Feature", Coefficient, q) %>%
+  distinct() %>%
+  kable(caption = cap) %>%
+  kable_styling(latex_options = "scale_down") %>%
+  footnote(general = n, threeparttable = TRUE) 
+```
+
+
+\newpage
+
+
+# Supplementary Figures
+
+
+
+
+```{r, out.width = "80%", fig.cap="Flow chart SMILEY participants."}
+include_graphics(here("fig/flowchart.pdf"))
+```
+
+```{r, fig.height = 10, fig.width = 30, fig.cap = "Pearson correlations between the stress variables at the time points of maternal microbiota sampling. If the corelation was significant, the coefficient estimate is shown in the tile, otherwise not. PRAQR2-H = fear of a handicapped child. PRAQR2-B = fear of giving birth. HCS = hair cortisol, HCN = hair cortisone, HCR = log-ratio of hair cortisol and cortisone. The measured times of hair cortisol and cortisone include 6-15 (1), 15-23 (2) and 23-32 (3)  weeks of gestation as well as 4-8 weeks postpartum (4)."}
+load(here("data/rdata/corplots.Rds"))
+cors2[[1]] + xlab("") + ylab("") +  ggtitle("Prenatal: Week 18") + theme(legend.position = "None") + cors2[[2]] + xlab("") + ylab("") + ggtitle("Prenatal: Week 32") + theme(legend.position = "None") + cors2[[3]] + xlab("") + ylab("") + ggtitle("Postnatal: Week 32")
+```
+
+```{r, fig.height = 10, fig.width = 30, fig.cap = "Pearson correlations between the stress variables at the time points of infant microbiota sampling. If the corelation was significant, the coefficient estimate is shown in the tile, otherwise not.  PRAQR2-H = fear of a handicapped child. PRAQR2-B = fear of giving birth. HCS = hair cortisol, HCN = hair cortisone, HCR = log-ratio of hair cortisol and cortisone. The measured times of hair cortisol and cortisone include 6-15 (1), 15-23 (2) and 23-32 (3)  weeks of gestation as well as 4-8 weeks postpartum (4)."}
+load(here("data/rdata/corplots.Rds"))
+icors2[[1]] + xlab("") + ylab("") +  ggtitle("Postnatal: Week 2") + theme(legend.position = "None") + icors2[[2]] + xlab("") + ylab("") + ggtitle("Postnatal: Week 6") + theme(legend.position = "None") + icors2[[3]] + xlab("") + ylab("") + ggtitle("Postnatal: Week 12") + theme(legend.position = "None") + icors2[[4]] + xlab("") + ylab("") + ggtitle("Postnatal: Month 8") +
+  plot_layout(nrow = 1)
+```
+
+```{r, out.width = "100%", fig.cap="Directed acyclic graph depicting the assumptions underlying the analyses for the maternal microbiota samples. pBMI = pre-pregnancy BMI. Activity = Pregnancy Physical Activity Questionnaire. Diet = Dutch Healthy Diet index."}
+include_graphics(here("fig/dag_mother.png"))
+```
+
+
+```{r, out.width = "100%", fig.cap="Directed acyclic graph depicting the assumptions underlying the analyses for the infant microbiota samples. Note that for analyses that use prenatal stress the direction of the arrow between gestational age and maternal stress reverses."}
+include_graphics(here("fig/dag_infant.png"))
+```
+
+
+
+
+
+
+
+
+
+
+```{r, fig.height=7.5, fig.width=15, fig.cap="Visualization of beta diversity of all maternal samples using either Aitchison distance (A) or Bray-Curtis similarity (B). Samples were taken at 18 (M1) and 32 (M2) weeks of pregnancy as well as 8 months postpartum (M3)."}
+load(here("data/rdata/mad_plots.Rds"))
+load(here("data/rdata/biplot_m.Rds"))
+p + theme(legend.position = "None") + ggtitle("A") + (p_bray +  theme(legend.position = "right") +
+  labs(color = "Sample") +
+  scale_color_manual(
+    values = c("t1" = '#fee0d2', "t2" = '#fc9272', "t3" = '#de2d26'),
+    labels = c("M1", "M2", "M3")) + ggtitle("B"))
+
+
+ggsave(
+  filename = here("fig/fig1.png"),
+  units = "in",
+  dpi = 300,
+  height = 5,
+  width = 5
+)
+
+```
+
+
+\newpage
+
+# References

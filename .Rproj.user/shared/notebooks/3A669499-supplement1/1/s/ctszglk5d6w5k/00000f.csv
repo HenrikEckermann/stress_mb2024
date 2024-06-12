@@ -1,0 +1,8 @@
+"0","load(here(""data/rdata/daa_tbl_1.Rds""))"
+"0","cap <- 'Bacterial species differentially abundant between maternal samples collected at 32 weeks of pregnancy and 8 months postpartum.'"
+"0","n <- 'The leading ""s"" indicates phylogenetic Species level.'"
+"0","filter(daa_tbl_1, q <= 0.1) %>%"
+"0","  arrange(abs(Coefficient)) %>%"
+"0","  mutate( Feature = str_extract(Feature, ""s__.*"")) %>%"
+"0","  kable(caption = cap) %>%"
+"0","  footnote(general = n)"

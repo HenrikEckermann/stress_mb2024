@@ -1,0 +1,8 @@
+"0","load(here(""data/rdata/daa_tbl_3.Rds""))"
+"0","cap <- 'Bacterial species identified in the maternal microbiota samples associated with any of the stress variables. Results are based on models fit per time point. Phylogenetic levels are indicated by ""g__"" for Genus and ""s__"" for Species.'"
+"0","filter(daa_tbl_3, q <= 0.1) %>%"
+"0","  mutate("
+"0","    `Stress Variable` = ""HCN1"", Sample = ""I2"""
+"0","    ) %>%"
+"0","  select(Sample, ""Stress Variable"", Feature, Coefficient, q) %>%"
+"0","  kable(caption = cap)"

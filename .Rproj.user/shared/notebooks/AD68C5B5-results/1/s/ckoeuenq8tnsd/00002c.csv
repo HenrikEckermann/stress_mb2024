@@ -1,0 +1,8 @@
+"0","ggsave("
+"0","  filename = here(""fig/fig1.png""),"
+"0","  units = ""in"","
+"0","  dpi = 300,"
+"0","  height = 5,"
+"0","  width = 5"
+"0",")"
+"0",""

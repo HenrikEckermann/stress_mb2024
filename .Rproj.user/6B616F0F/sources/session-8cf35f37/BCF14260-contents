@@ -1,0 +1,180 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+  word_document: default
+---
+
+```{r warning = FALSE, message = FALSE, echo = FALSE}
+library(here)
+library(tidyverse)
+library(patchwork)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+```
+
+### 1) Can we observe changes in the microbiota from the second to the third trimester and does the microbiota at 8 months postpartum differ from the microbiota during pregnancy?
+
+```{r}
+load(here::here("data/rdata/b_change.Rds"))
+load(here::here("data/rdata/pm_df_t.Rds"))
+```
+
+#### Alpha diversity
+
+We did not detect changes in the alpha diversity during pregnancy. However, we observed that Faith diversity decreased 8 months postpartum compared to at 18 ($\beta$ = `r b[["m"]][b$alpha == "faith" & b$contrast == "t3 - t1"]`, 95% HDI = [`r b[["lower"]][b$alpha == "faith" & b$contrast == "t3 - t1"]`; `r b[["upper"]][b$alpha == "faith" & b$contrast == "t3 - t1"]`], $P(\beta \geq 0) =$ `r b[["p"]][b$alpha == "faith" & b$contrast == "t3 - t1"]`) and 32 ($\beta$ = `r b[["m"]][b$alpha == "faith" & b$contrast == "t3 - t2"]`, 95% HDI = [`r b[["lower"]][b$alpha == "faith" & b$contrast == "t3 - t2"]`; `r b[["upper"]][b$alpha == "faith" & b$contrast == "t3 - t2"]`], $P(\beta \geq 0) =$ `r b[["p"]][b$alpha == "faith" & b$contrast == "t3 - t2"]`) weeks of gestation on average. A similar trend was observed when looking at the difference in Shannon diversity between 8 months postpartum and 18 ($\beta$ = `r b[["m"]][b$alpha == "shannon" & b$contrast == "t3 - t1"]`, 95% HDI = [`r b[["lower"]][b$alpha == "shannon" & b$contrast == "t3 - t1"]`; `r b[["upper"]][b$alpha == "shannon" & b$contrast == "t3 - t1"]`], $P(\beta \geq 0) =$ `r b[["p"]][b$alpha == "shannon" & b$contrast == "t3 - t1"]`) and 32 ($\beta$ = `r b[["m"]][b$alpha == "shannon" & b$contrast == "t3 - t2"]`, 95% HDI = [`r b[["lower"]][b$alpha == "shannon" & b$contrast == "t3 - t2"]`; `r b[["upper"]][b$alpha == "shannon" & b$contrast == "t3 - t2"]`], $P(\beta \geq 0) =$ `r b[["p"]][b$alpha == "shannon" & b$contrast == "t3 - t2"]`) weeks of gestation (Figure 1).
+
+```{r, fig.height = 7.5, fig.width = 15, fig.cap="Shannon and Faith alpha diversity across time points for maternal microbiota samples. Samples were taken at 18 (M1) and 32 (M2) weeks of pregnancy and at 8 months postpartum (M3). Alpha diversity dropped significantly from M1 and M2 to M3 for both indices."}
+load(here("data/rdata/mad_plots.Rds"))
+load(here("data/rdata/biplot_m.Rds"))
+mad_plots[[1]] + theme_bw(base_size = 20) + theme(legend.position = "None") + mad_plots[[2]] + theme_bw(base_size = 20) + theme(legend.position = "None")
+
+
+ggsave(
+  filename = here("fig/fig1.png"),
+  units = "in",
+  dpi = 300,
+  height = 5,
+  width = 5
+)
+
+```
+
+#### Beta diversity and differential abundance analysis
+
+Similarly, we did not find evidence that beta diversity is different between 18 weeks and 32 weeks of gestation. Beta diversity at eight months postpartum differs significantly compared to 18 weeks (*p* = `r pm_df[pm_df$t == "t1 vs t3", "p"]`) and the 32 weeks (*p* = `r pm_df[pm_df$t == "t2 vs t3", "p"]`) of gestation. However, effect sizes were very small ($R^2 \leq$ .01) and there is no visible separation from maternal samples within pregnancy and postpartum (supplementary Figure S6). Looking at individual species, we only found a small increase in *Bifidobacterium pseudocatenulatum* between 18 and 32 weeks of gestation (FDR = .039). We found many individual species to be differentially abundant (FDR $\leq$ 0.1) between 32 weeks of pregnancy and eight months postpartum (supplementary Table S2). Mainly we observed a decrease in *Akkermansia muciniphila* and *Anaerostipes hadrus* as well as an increase in *Fusicatenibacter saccharivorans* and an unclassified species of *Ruminococcaceae*. Lastly, in the beta diversity models, we observed an interaction between parity and pBMI, such that pBMI was only associated with microbiota composition in multiparous mothers. 
+
+
+
+### 2) How is maternal prenatal and postnatal stress related to the maternal gut microbiota during and after pregnancy?
+
+#### Alpha diversity
+
+```{r}
+load(here::here("data/rdata/b_stress_ad_m.Rds"))
+load(here::here("data/rdata/b_praq_m.Rds"))
+load(here::here("data/rdata/b_psas_m.Rds"))
+```
+
+Prenatally, our data indicated no or only a weak association between MS and the alpha diversity measures (supplementary Table S3). However, we found a negative association between the PRAQR2-B (fear of giving birth) with both the Shannon ($\beta$ = `r b[["m"]][b$alpha == "shannon" & b$parameter == "b_praqr_birth"]`, 95% HDI = [`r b[["lower"]][b$alpha == "shannon" & b$parameter == "b_praqr_birth"]`; `r b[["upper"]][b$alpha == "shannon" & b$parameter == "b_praqr_birth"]`], $P(\beta \geq 0) =$ `r b[["p"]][b$alpha == "shannon" & b$parameter == "b_praqr_birth"]`) and Faith index ($\beta$ = `r b[["m"]][b$alpha == "faith" & b$parameter == "b_praqr_birth"]`, 95% HDI = [`r b[["lower"]][b$alpha == "faith" & b$parameter == "b_praqr_birth"]`; `r b[["upper"]][b$alpha == "faith" & b$parameter == "b_praqr_birth"]`], $P(\beta \geq 0) =$ `r b[["p"]][b$alpha == "faith" & b$parameter == "b_praqr_birth"]`) at 18 weeks but not 32 weeks of pregnancy (Figure 2A). 
+
+```{r}
+load(here::here("data/rdata/b_stress_group_m.Rds"))
+```
+
+Postnatally, we only detected an association between the maternal stress composite (MS) and alpha diversity when exploring non-linear associations by segmenting the predictor variable into low, medium and high stress. Specifically, we found that the difference in alpha diversity between the medium and high stress group varied closely around zero, indicating that these groups do not differ in alpha diversity. However, the  low stress group had consistently lower alpha diversity than the medium and high stress groups. While the HDIs for most contrasts overlapped slightly with zero, the model indicated that Shannon index in low stress mothers is lower at 8 months postpartum ($\beta$ = `r b[["m"]][b$alpha == "shannon" & b$contrast== "low - medium t3"]`, 95% HDI = [`r b[["lower"]][b$alpha == "shannon" & b$contrast== "low - medium t3"]`; `r b[["upper"]][b$alpha == "shannon" & b$contrast== "low - medium t3"]`], $P(\beta \geq 0) =$ `r b[["p"]][b$alpha == "shannon" & b$contrast== "low - medium t3"]`) compared to the medium stress group (Figure 2B). The effect size for the contrast with the high stress group is similar but the HDI is wider due to the smaller group sizes of low and high stress ($\beta$ = `r b[["m"]][b$alpha == "shannon" & b$contrast== "low - high t3"]`, 95% HDI = [`r b[["lower"]][b$alpha == "shannon" & b$contrast== "low - high t3"]`; `r b[["upper"]][b$alpha == "shannon" & b$contrast== "low - high t3"]`], $P(\beta \geq 0) =$ `r b[["p"]][b$alpha == "shannon" & b$contrast== "low - high t3"]`)
+
+For the time point at 8 months postpartum we also investigated whether the PSAS was related to alpha diversity and found that the directions of the estimates were in line with the association reported for the prenatal PRAQR2-B (fear of giving birth) for Shannon ($\beta$ = `r b_psas[["m"]][b_psas$alpha == "shannon" & b_psas$parameter == "b_psas"]`, 95% HDI = [`r b_psas[["lower"]][b_psas$alpha == "shannon" & b_psas$parameter == "b_psas"]`; `r b_psas[["upper"]][b_psas$alpha == "shannon" & b_psas$parameter == "b_psas"]`], $P(\beta \geq 0) =$ `r b_psas[["p"]][b_psas$alpha == "shannon" & b_psas$parameter == "b_psas"]`) and Faith diversity ($\beta$ = `r b_psas[["m"]][b_psas$alpha == "faith" & b_psas$parameter == "b_psas"]`, 95% HDI = [`r b_psas[["lower"]][b_psas$alpha == "faith" & b_psas$parameter == "b_psas"]`; `r b_psas[["upper"]][b_psas$alpha == "faith" & b_psas$parameter == "b_psas"]`], $P(\beta \geq 0) =$ `r b_psas[["p"]][b_psas$alpha == "faith" & b_psas$parameter == "b_psas"]`). However, we could not reject the null hypothesis for the PSAS.
+
+
+```{r}
+load(here("data/rdata/b_cort_ad_m.Rds"))
+```
+
+Looking at the hair cortisol and cortisone concentrations, our models indicate no, or a weak association between most hormone measures and alpha diversity (supplementary Table S3). However, the log-ratio of cortisol and cortisone (HCR2) was positively related to both alpha diversity measures at 18 weeks of gestation ($\beta$ = `r b[["m"]][b$alpha == "shannon" & b$parameter == "b_ratio"]`, 95% HDI = [`r b[["lower"]][b$alpha == "shannon" & b$parameter == "b_ratio"]`; `r b[["upper"]][b$alpha == "shannon" & b$parameter == "b_ratio"]`], $P(\beta \geq 0) =$ `r b[["p"]][b$alpha == "shannon" & b$parameter == "b_ratio"]`; Figure 2C; $\beta$ = `r b[["m"]][b$alpha == "faith" & b$parameter == "b_ratio"]`, 95% HDI = [`r b[["lower"]][b$alpha == "faith" & b$parameter == "b_ratio"]`; `r b[["upper"]][b$alpha == "faith" & b$parameter == "b_ratio"]`], $P(\beta \geq 0) =$ `r b[["p"]][b$alpha == "faith" & b$parameter == "b_ratio"]`; Figure 2D). 
+
+
+
+
+```{r fig.height = 15, fig.width=15, fig.cap="Shannon alpha diversity for maternal microbiota samples obtained at 18 weeks of pregnancy (M1) and at 8 months postpartum (M3) plotted with the PRAQR2-B (fear of giving birth; A) and the MS (i.e. composite score based on EPDS, STAI, PSS-10; B). For the plot with PRAQR2-B, we added random noise to avoid overplotting of the data points. The regression line and the colored shaded region illustrate our slope estimate including the 95% credible interval. We used the median for all covariates to generate the posterior distribution for the slope parameter."}
+
+load(here("data/rdata/shannon_m_p.Rds"))
+((shannon_m1 + theme_bw(base_size = 20) + ggtitle("A") + ylim(limits = c(-3.5, 3.5)) + xlab("PRAQR2-B (fear of giving birth)") + shannon_m2 + theme_bw(base_size = 20) + ggtitle("B") + ylab("") + xlab("MS") + ylim(limits = c(-3.5, 3.5))))/
+  ((shannon_m3 + theme_bw(base_size = 20) + ggtitle("C") + ylim(limits = c(-3.5, 3.5)) + xlab("Log-ratio of cortisol/cortisone (HCR2)") + shannon_m4 + theme_bw(base_size = 20) + ggtitle("D") + xlab("Log-ratio of cortisol/cortisone (HCR2)") + ylim(limits = c(-3.5, 3.5))))
+  
+   
+```
+
+
+#### Beta diversity and differential abundance analysis
+
+We did not find evidence that any of the stress variables was associated with beta diversity. In addition, there were only a few  associations between the stress variables  and individual species, including *Blautia* for the PSS-10 and *Bacteroides cellulosilyticus* for hair cortisone (HCN3). Supplementary tables S4-S5 list the coefficients of all the single species that were associated with any of the stress variables ($FDR \leq 0.1$) across all time points (supplementary Table S4) and per time point (supplementary Table S5). 
+
+
+
+
+```{r}
+load(here::here("data/rdata/bmvol.Rds"))
+```
+
+#### Volatility
+
+Lastly, MS was not associated with the maternal microbiota volatility between 18 and 32 weeks of pregnancy and 32 weeks of pregnancy and 8 months postpartum ($\beta$ = `r b[["m"]][b$parameter == "b_ms"]`, 95% HDI = [`r b[["lower"]][b$parameter == "b_ms"]`; `r b[["upper"]][b$parameter == "b_ms"]`], $P(\beta \geq 0) =$ `r b[["p"]][b$parameter == "b_ms"]`), also not for any of the separate questionnaires (including PRAQR2 and PSAS) or hair cortisol/cortisone. The microbiota volatility from 32 weeks of pregnancy to 8 months postpartum was significantly higher than the volatility between the second and the third trimester ($\beta$ = `r b[["m"]][b$parameter == "b_t2"]`, 95% HDI = [`r b[["lower"]][b$parameter == "b_t2"]`; `r b[["upper"]][b$parameter == "b_t2"]`], $P(\beta \geq 0) =$ `r b[["p"]][b$parameter == "b_t2"]`) as would be expected due to the longer time interval between taking the samples. 
+
+
+### 3) Does maternal pre- and postnatal stress associate with the infant gut microbiota development?
+
+
+
+```{r}
+load(here("data/rdata/b_stress_prenatal_i.Rds"))
+# arrange(b, infant_time)  %>%
+#   filter(p <= 0.05 | p >= 0.95) %>%
+#   print(n = 80)
+```
+
+#### Alpha diversity
+
+While we did not find a significant association between the MS composite score measured at 18 weeks of pregnancy, the STAI was negatively associated with infant Shannon diversity at 2 weeks postpartum ($\beta$ = `r b[["m"]][b$parameter == "b_stai" & b$infant_time == 2 & b$mother_time == "t1" &b$alpha == "shannon"]`, 95% HDI = [`r b[["lower"]][b$parameter == "b_stai" & b$infant_time == 2 & b$mother_time == "t1" &b$alpha == "shannon"]`; `r b[["upper"]][b$parameter == "b_stai" & b$infant_time == 2 & b$mother_time == "t1" &b$alpha == "shannon"]`], $P(\beta \geq 0) =$ `r b[["p"]][b$parameter == "b_stai" & b$infant_time == 2 & b$mother_time == "t1" &b$alpha == "shannon"]`).  Also, the PRAQR2-H (fear of a handicapped child) at 32 weeks of pregnancy was positively associated with Shannon diversity at 2 weeks postpartum ($\beta$ = `r b[["m"]][b$parameter == "b_praqr_handicap" & b$infant_time == 2 & b$mother_time == "t2" &b$alpha == "shannon"]`, 95% HDI = [`r b[["lower"]][b$parameter == "b_praqr_handicap" & b$infant_time == 2 & b$mother_time == "t2" &b$alpha == "shannon"]`; `r b[["upper"]][b$parameter == "b_praqr_handicap" & b$infant_time == 2 & b$mother_time == "t2" &b$alpha == "shannon"]`], $P(\beta \geq 0) =$ `r b[["p"]][b$parameter == "b_praqr_handicap" & b$infant_time == 2 & b$mother_time == "t2" &b$alpha == "shannon"]`), see also supplementary Table S6. In contrast, we found a positive association between MS ($\beta$ = `r b[["m"]][b$parameter == "b_ms" & b$infant_time == 6 & b$mother_time == "t2" &b$alpha == "faith"]`, 95% HDI = [`r b[["lower"]][b$parameter == "b_ms" & b$infant_time == 6 & b$mother_time == "t2" &b$alpha == "faith"]`; `r b[["upper"]][b$parameter == "b_ms" & b$infant_time == 6 & b$mother_time == "t2" &b$alpha == "faith"]`], $P(\beta \geq 0) =$ `r b[["p"]][b$parameter == "b_ms" & b$infant_time == 6 & b$mother_time == "t2" &b$alpha == "faith"]`) and specifically the EPDS ($\beta$ = `r b[["m"]][b$parameter == "b_epds" & b$infant_time == 6 & b$mother_time == "t2" &b$alpha == "faith"]`, 95% HDI = [`r b[["lower"]][b$parameter == "b_epds" & b$infant_time == 6 & b$mother_time == "t2" &b$alpha == "faith"]`; `r b[["upper"]][b$parameter == "b_epds" & b$infant_time == 6 & b$mother_time == "t2" &b$alpha == "faith"]`], $P(\beta \geq 0) =$ `r b[["p"]][b$parameter == "b_epds" & b$infant_time == 6 & b$mother_time == "t2" &b$alpha == "faith"]`) measured at 32 weeks of pregnancy and Faith diversity at 6 weeks postpartum and between PRAQR2-B (fear of giving birth) measured at 18 and 32 weeks of pregnancy and Shannon diversity at 12 weeks postpartum ($\beta$ = `r b[["m"]][b$parameter == "b_praqr_birth" & b$infant_time == 12 & b$mother_time == "t1" &b$alpha == "shannon"]`, 95% HDI = [`r b[["lower"]][b$parameter == "b_praqr_birth" & b$infant_time == 12 & b$mother_time == "t1" &b$alpha == "shannon"]`; `r b[["upper"]][b$parameter == "b_praqr_birth" & b$infant_time == 12 & b$mother_time == "t1" &b$alpha == "shannon"]`], $P(\beta \geq 0) =$ `r b[["p"]][b$parameter == "b_praqr_birth" & b$infant_time == 12 & b$mother_time == "t1" &b$alpha == "shannon"]`).
+
+Furthermore, we identified a negative association between hair cortisone (HCN1) and Faith diversity at eight months postpartum ($\beta$ = `r b[["m"]][b$parameter == "b_cortisone_g3" & b$infant_time == 32 &b$alpha == "faith"]`, 95% HDI = [`r b[["lower"]][b$parameter == "b_cortisone_g3" & b$infant_time == 32 &b$alpha == "faith"]`; `r b[["upper"]][b$parameter == "b_cortisone_g3" & b$infant_time == 32 &b$alpha == "faith"]`], $P(\beta \geq 0) =$ `r b[["p"]][b$parameter == "b_cortisone_g3" & b$infant_time == 32 &b$alpha == "faith"]`), with similar trends seen also for hair cortisone (HCN2) as well as when using Shannon diversity (see supplementary Table S6). Also, the log-ratio of hair cortisol and cortisone (HCR2) was positively related to Shannon diversity at 8 months postpartum ($\beta$ = `r b[["m"]][b$parameter == "b_ratio_g2" & b$infant_time == 32 &b$alpha == "shannon"]`, 95% HDI = [`r b[["lower"]][b$parameter == "b_ratio_g2" & b$infant_time == 32 &b$alpha == "shannon"]`; `r b[["upper"]][b$parameter == "b_ratio_g2" & b$infant_time == 32 &b$alpha == "shannon"]`], $P(\beta \geq 0) =$ `r b[["p"]][b$parameter == "b_ratio_g2" & b$infant_time == 32 &b$alpha == "shannon"]`). Figure 3 shows all associations where we rejected the null hypothesis.
+
+
+```{r, fig.height = 15, fig.width = 15, fig.cap="Alpha diversity at different time points (indicated in the y-axis label by shade coloring from light to dark green) plotted against different stress measures (indicated in the x-axis label). The time point of the maternal stress measurement is indicated in the box above the plot. The regression lines and the colored shaded regions illustrate our slope estimates including their 95% credible interval. We used the median for all covariates to generate the posterior distribution for the slope parameters. HCN1 = Hair cortisol reflecting maternal stress between week 6 and 15 of gestation, HCR2 = log-ratio of hair cortisol and cortisone reflecting stress between 15 and 23 weeks of gestation."}
+load(here("data/rdata/shannon_stress_i.Rds"))
+load(here("data/rdata/shannon_stress_i_2.Rds"))
+p1 + theme_bw(base_size = 17) + ggtitle("A") + p2 + theme_bw(base_size = 17) + ggtitle("B") + p4 + theme_bw(base_size = 17) + ggtitle("C") + p5 + theme_bw(base_size = 17) + ggtitle("D") + p6 + theme_bw(base_size = 17) + ggtitle("E") +
+  p7 + theme_bw(base_size = 17) + ggtitle("F")
+
+# p1 + xlab("PRAQR2 (fear of handicapped child)") + ylim(c(-2, 5)) + ggtitle("A") + p3 + xlab("PRAQR2-B (fear of giving birth)") + ylim(c(-2, 5)) + ggtitle("B") + ylab("") + p1 + ylim(c(-2, 5)) + ggtitle("C") + ylab("") + xlab("MS")
+
+# p2 + xlab("PRAQR2 (fear of handicapped child)") + ylim(c(-2, 5)) + ggtitle("A") + p3 + xlab("PRAQR2-B (fear of giving birth)") + ylim(c(-2, 5)) + ggtitle("B") + ylab("") + p1 + ylim(c(-2, 5)) + ggtitle("C") + ylab("") + xlab("MS")
+```
+
+
+
+```{r}
+load(here("data/rdata/b_stress_group_i.Rds"))
+b2 <- b
+load(here("data/rdata/b_stress_ad_i.Rds"))
+```
+
+Our data further indicated that there is no or only a weak association between postnatal maternal stress variables and alpha diversity at most time points in the infant samples (see supplementary Table S7 for the corresponding $\beta$ coefficients of all time points and stress measures). However, we found negative associations between Shannon diversity and EPDS ($\beta$ = `r b[["m"]][b$parameter == "b_epds" & b$t == "t4" &b$alpha == "shannon"]`, 95% HDI = [`r b[["lower"]][b$parameter == "b_epds" & b$t == "t4" &b$alpha == "shannon"]`; `r b[["upper"]][b$parameter == "b_epds" & b$t == "t4" &b$alpha == "shannon"]`], $P(\beta \geq 0) =$ `r b[["p"]][b$parameter == "b_epds" & b$t == "t4" &b$alpha == "shannon"]`) and PSS-10 ($\beta$ = `r b[["m"]][b$parameter == "b_pss" & b$t == "t4" &b$alpha == "shannon"]`, 95% HDI = [`r b[["lower"]][b$parameter == "b_pss" & b$t == "t4" &b$alpha == "shannon"]`; `r b[["upper"]][b$parameter == "b_pss" & b$t == "t4" &b$alpha == "shannon"]`], $P(\beta \geq 0) =$ `r b[["p"]][b$parameter == "b_pss" & b$t == "t4" &b$alpha == "shannon"]`) at 8 months postpartum. In line with that, comparing the groups of low and high MS we found that at 8 months postpartum, infants of low stress mothers had higher Shannon alpha diversity than infants of high stress mothers ($\beta$ = `r b2[["m"]][b2$alpha == "shannon" & b2$contrast== "low - high" & b2$time == "t4"]`, 95% HDI = [`r b2[["lower"]][b2$alpha == "shannon" & b2$contrast== "low - high" & b2$time == "t4"]`; `r b2[["upper"]][b2$alpha == "shannon" & b2$contrast== "low - high" & b2$time == "t4"]`], $P(\beta \geq 0) =$ `r b2[["p"]][b2$alpha == "shannon" & b2$contrast== "low - high" & b2$time == "t4"]`), see Figure 4.
+
+
+```{r, fig.height = 7.5, fig.width = 15, fig.cap="Shannon alpha diversity of infant microbiota samples collected at 8 months postpartum plotted against different stress measures (indicated in the x-axis label). The time point of the maternal stress measurement is indicated in the box above the plot. The regression lines and the colored shaded regions illustrate our slope estimates including their 95% credible interval. We used the median for all covariates to generate the posterior distribution for the slope parameters. MS = Maternal stress composite score."}
+load(here("data/rdata/ad_postnatal_stress_p.Rds"))
+p2 + theme_bw(base_size = 20) + ggtitle("A") + p3 + theme_bw(base_size = 20) + ylab("") + ggtitle("B") + xlab("PSS-10") + p1 + theme_bw(base_size = 20) + ylab("") + ggtitle("C") + xlab("MS")
+```
+
+
+
+
+
+
+
+
+#### Beta diversity and differential abundance analysis
+
+The MS or its individual stress variables were not significantly associated with beta diversity. However, we observed that the PRAQR2-B (fear of giving birth) at 18 weeks of pregnancy was associated with beta diversity in infants sampled at 12 weeks ($R^2$ = .011, *p* = .023) and 8 months ($R^2$ = .015, *p* = .040) postpartum. Hair cortisol (HCS3) was associated with beta diversity at 2 ($R^2$ = .017, *p* = .006) and 12 weeks ($R^2$ = .015, *p* = .022) postpartum and hair cortisone (HCN3) was associated with beta diversity at 2 ($R^2$ = .016, *p* = .004) and 8 months ($R^2$ = .022, *p* = .025) postpartum. Neither the questionnaires, nor the hair cortisol and cortisone concentrations obtained postnatally were associated with beta diversity of the infant samples. 
+
+Several bacterial species were associated with the postnatal stress variables (supplementary Tables S8-S10 list all species and phyla related to any of the stress variables across time and at the separate time points (FDR $\leq$ 0.1)). Among other associations, we found positive associations between *Bacteroides fragilis* and hair cortisol (HCS3 and HCS2). This association was present across all samples and at several stool sampling time points individually. It became particularly strong when looking at the log-ratio of hair cortisol and cortisone (HCR3) and the infant sample at 6 weeks postpartum. Furthermore, we observed negative associations between *Flavonifractor plautii* and *Bacteroides ylanisolvens* and hair cortisol (HCS3) as well as *Bacteroides thetaiotaomicron* and hair cortisol (HCS2). We did not find evidence for a positive association between any of the stress variables and Proteobacteria or for a negative association with Lactobacilli or *Bifidobacterium*. Instead, the postnatal stress measures MS, EPDS and PSS-10 were positively associated with Firmicutes across all time points.
+
+
+
+
+```{r}
+load(here("data/rdata/postnatal_vol_i.Rds"))
+```
+
+#### Volatility
+
+We found a positive association between MS at two weeks postpartum and volatility between 2 and 6 weeks postpartum ($\beta$ = `r b[["m"]][b$parameter == "b_ms" & b$week == 2]`, 95% HDI = [`r b[["lower"]][b$parameter == "b_ms" & b$week == 2]`; `r b[["upper"]][b$parameter == "b_ms" & b$week == 2]`], $P(\beta \geq 0) =$ `r b[["p"]][b$parameter == "b_ms" & b$week == 2]`), see Figure 5A. We found the same for all questionnaires individually. Also, the PSS-10 at 6 weeks postpartum was positively associated with volatility between 6 and 12 weeks postpartum, see Figure 5B. Lastly, we found that the log-ratio of hair cortisol and cortisone (HCR2) was positively related to volatility between 12 weeks and eight months postpartum ($\beta$ = `r b[["m"]][b$parameter == "b_ratio_g2" & b$week == 12]`, 95% HDI = [`r b[["lower"]][b$parameter == "b_ratio_g2" & b$week == 12]`; `r b[["upper"]][b$parameter == "b_ratio_g2" & b$week == 12]`], $P(\beta \geq 0) =$ `r b[["p"]][b$parameter == "b_ratio_g2" & b$week == 12]`), see Figure 5C.
+
+
+
+
+```{r, fig.height = 7.5, fig.width = 15, fig.cap= "Volatility at different time point intervals (indicated by shade color from light green to dark green) of the infant stool samples and the postnatal maternal stress composite score (MS) (A), PSS-10 (B) and log-ratio of hair cortisol and cortisone (HCR2) (C). The time points used to calculate volatility are indicated in the box at the top of each plot. The regression line and the colored shaded region illustrate our slope estimate including the 95% credible interval. We used the median for all covariates to generate the posterior distribution for the slope parameter. HCR2 = log-ratio of hair cortisol and cortisone reflecting maternal stress between 15 and 23 weeks of gestation."}
+p1 + theme_bw(base_size = 19) + ggtitle("A") + xlab("MS") + p2 + theme_bw(base_size = 19) + ggtitle("B") + xlab("PSS-10") + p3 + theme_bw(base_size = 19) + ggtitle("C")
+```
+
+

@@ -1,0 +1,9 @@
+"0","load(here(""data/rdata/mad_plots.Rds""))"
+"0","load(here(""data/rdata/biplot_m.Rds""))"
+"0","p + theme(legend.position = ""None"") + ggtitle(""A"") + (p_uni +  theme(legend.position = ""right"") +"
+"0","  labs(color = ""Sample"") +"
+"0","  scale_color_manual("
+"0","    values = c(""t1"" = '#fee0d2', ""t2"" = '#fc9272', ""t3"" = '#de2d26'),"
+"0","    labels = c(""M1"", ""M2"", ""M3"")) + ggtitle(""B""))"
+"2","[38;5;232mScale for [32mcolour[38;5;232m is already present.
+Adding another scale for [32mcolour[38;5;232m, which will replace the existing scale.[39m"

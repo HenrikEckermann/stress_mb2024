@@ -1,0 +1,147 @@
+---
+title             : "Maternal Pre- and Postnatal Stress and Maternal and Infant Gut Microbiota Features."
+shorttitle        : "Maternal Pre- and Postnatal Stress and Maternal and Infant Gut Microbiota Features."
+
+author: 
+  - name          : "Henrik Eckermann"
+    affiliation   : "1"
+    corresponding : yes    # Define only one corresponding author
+    address        : "Donders Institute for Brain, Cognition and Behavior, Kapittelweg 29, 6525EN Nijmegen, The Netherlands" 
+    email         : "henrik.eckermann@radboudumc.nl"
+    role:         # Contributorship roles (e.g., CRediT, https://casrai.org/credit/)
+      - "Original Draft Preparation"
+      - "Data Analysis"
+      - "Review & Editing"
+      
+  - name          : "Hellen Lustermans"
+    affiliation   : "1"
+    role:
+      - "Conceptualization"
+      - "Data Collection"
+      - "Review & Editing"
+  - name          : "Katariina Parnanen"
+    affiliation   : "2"
+    role:
+      - "Metagenomic taxonomic profiling"
+      - "Review & Editing"
+  - name          : "Leo Lahti"
+    affiliation   : "2"
+    role:
+      - "Supervision"
+      - "Review & Editing"
+  - name          : "Carolina de Weerth"
+    affiliation   : "1"
+    role:
+      - "Conceptualization"
+      - "Review & Editing"
+      - "Supervision"
+
+affiliation:
+  - id            : "1"
+    institution   : "Radboud university medical center, Donders Institute for Brain, Cognition and Behaviour, Department of Cognitive Neuroscience, Nijmegen, The Netherlands"
+  - id            : "2"
+    institution   : "University of Turku, Department of Computing, Turku, Finland"
+
+abstract: |
+  Background: Maternal stress can have short and long term adverse (mental) health effects for the mother and her child. Previous evidence suggests that the gut microbiota may be a potential mediator and moderator for the effects of stress via various pathways. This study explored the maternal microbiota trajectory during pregnancy as well as the association between pre- and postnatal maternal stress and features of the maternal and infant gut microbiota during and after pregnancy. In line with previous research, we hypothesized that maternal stress would be positively related to maternal and infant microbiota volatility and that infants of highly stressed mothers would show a relative increase in Proteobacteria and a relative decrease in *Bifidobacterium*. 
+  Methods: We collected maternal stool samples at 18 and 32 weeks of pregnancy and 8 months postpartum. Infant stools samples were obtained at 2, 6 and 12 weeks and 8 months postpartum. All samples were analyzed using shotgun metagenome sequencing. We also collected several measures of maternal stress (self-reported depression, anxiety, and stress, and hair cortisol and cortisone), most at the same time points as the microbiota samples. 
+  Results: Our data indicated that the maternal microbiota does not undergo drastic changes from the second to the third trimester of pregnancy but that the postpartum microbiota differs significantly from the prenatal microbiota. Furthermore, we identified associations between several stress measures and the maternal and infant gut microbiota features at different time points including positive and negative associations with alpha diversity, beta diversity and individual microbial phyla and species relative abundances. Also, the maternal stress composite score, the perceived stress score and the log-ratio of hair cortisol and cortisone were all positively associated with infant microbiota volatility. 
+  Conclusion: Our study provides evidence that maternal prenatal and postnatal stress is related to both the maternal and the infant microbiota. Collectively, this and previous studies indicate that maternal stress does not uniformly associate with most gut microbial features. Instead, the associations are highly time point specific. Regarding infant microbiota volatility, we have consistently found a positive association between stress and infant microbiota volatility. This warrants future research investigating this link in more depth.
+
+
+
+  
+keywords          : "Prenatal and postnatal maternal stress, Maternal microbiota, Infant microbiota development"
+wordcount         : "352"
+
+csl               : "bib/apa.csl"
+bibliography      : "bib/final.bib"
+
+floatsintext      : no
+linenumbers       : yes
+draft             : no
+mask              : no
+
+figurelist        : yes
+tablelist         : yes
+footnotelist      : no
+
+classoption       : "man"
+output            : papaja::apa6_docx
+---
+
+```{r setup, include = FALSE}
+library("papaja")
+library(patchwork)
+library(tidyverse)
+```
+
+```{r analysis-preferences}
+# Seed for random number generation
+set.seed(42)
+knitr::opts_chunk$set(cache.extra = knitr::rand_seed, warning = FALSE)
+#devtools::install_version("ggplot2", "3.3.5")
+```
+
+
+
+```{python, include = FALSE}
+# use_condaenv("base", conda = "/opt/anaconda3/bin/conda")
+# merge bib files to final.bib
+# set dir
+import os
+# os.chdir(f"{os.getcwd()}/../../bib")
+# open bib files
+with open("bib/my_library.bib", 'r+', encoding="utf-8") as lib:
+  library = lib.read()
+with open("bib/rpackages.bib", "r") as pkg:
+  packages = pkg.read()
+
+
+with open("bib/final.bib", "w+", encoding="utf-8") as new_bibfile:
+  new_bibfile.write(packages + library)
+```
+
+
+
+
+
+# Introduction
+
+```{r child = 'intro.Rmd'}
+```
+
+# Methods
+
+```{r child = 'methods.Rmd'}
+```
+
+# Results 
+
+```{r child = 'results.Rmd'}
+```
+
+# Discussion
+
+```{r child = 'discussion.Rmd'}
+```
+
+# Declarations of interest
+
+None.
+
+# Funding
+
+This work was supported by the Dutch National Science Organisation (NWO) VICI grant (016.Vici. 185.038) received by C.dW. The funder had no role in study design, data collection, analysis, interpretation of data, writing of the report or the decision to submit the manuscript for publication.
+
+# Acknowledgements
+
+We would like to thank the families who participated in the SMILEY study and all research assistants and students for their assistance with data collection and data processing.
+
+# References
+
+
+
+
+::: {#refs custom-style="Bibliography"}
+:::

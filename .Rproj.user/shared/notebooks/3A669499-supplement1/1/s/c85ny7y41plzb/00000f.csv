@@ -1,0 +1,4 @@
+"0","load(here(""data/rdata/daa_tbl_3.Rds""))"
+"0","cap <- 'Bacterial species identified in the maternal microbiota samples associated with any of the maternal stress variables. Results are based on models fit per infant microbiota sampling time point.'"
+"0","n <- 'The leading ""s"" indicates phylogenetic Species level. HCN3 = Hair cortisone reflecting cortisone levels between 23 and 32 weeks of pregnancy.'"
+"0","filter(daa_tbl_3, q <= 0.1) "

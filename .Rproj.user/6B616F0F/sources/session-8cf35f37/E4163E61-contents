@@ -1,0 +1,103 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+  word_document: default
+---
+
+```{r warning = FALSE, message = FALSE, echo = FALSE}
+library(here)
+library(tidyverse)
+library(patchwork)
+library(knitr)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+```
+
+
+## Participants
+
+Participants are mother-infant dyads from the ongoing longitudinal SMILEY study (Study of MIcrobiota and Lifestyle in the Early Years), which investigates lifestyle and well-being of pregnant women in relation to infant development [@lustermansStressrelatedEatingPregnancy2024;@epsteinImplicationsChildhoodAdversity2024]. Pregnant women were recruited through the Baby & Child Research Center’s network of midwifery practices in the Netherlands and via social media, between December 2019 and April 2021. Inclusion criteria were $\geq$ 18 years of age, mastery of the Dutch language, singleton pregnancy, and pre-pregnancy BMI $\leq$ 30, and exclusion criteria were severe obstetric complications, and (severe) mental or physical health issues (i.e. mental health problems that require psychiatric treatment and/or medication). Inclusion criteria for the infant were born at $\geq$ 37 weeks of pregnancy, birth weight of $\geq$ 2500 g, and a 5-min Apgar score of $\geq$ 7. The study was approved by the Ethics Committee of the Faculty of Social Sciences of the Radboud University under the blanket research line ‘pregnancy-4years Developmental Psychobiology Lab’ (SW2017-1303-497), including two amendments (ECSW-2019-051 and ECSW2020-021). 
+In total, 160 participants enrolled in the study by providing written informed consent. The current study contains data from both measurements in pregnancy (18 and 32 weeks of gestation) and four measurements after birth (2, 6 and 12 weeks and 8 months postpartum). Supplementary Figure S1 shows a flow-chart of participant numbers at each assessment moment. Note that some participants were excluded after completing one or more measurement rounds. Table 1 shows demographic data for all infant-mother dyads that were included in the current study (i.e. that provided at least one maternal or infant stool sample). 
+
+
+```{r}
+load(here("data/rdata/tables.Rds"))
+cap <- "Demographic data for all infant-mother dyads that were included in the current study."
+#tbl1
+```
+
+## Procedure
+This study is based on multiple assessments that took place at 18 and 32 weeks of gestation and 2, 6 and 12 weeks and 8 months postpartum. At each wave, participants were asked to complete online questionnaires measuring maternal stress and potential covariates (e.g. demographics, maternal diet, antibiotic use). Also, at 18 and 32 weeks of gestation and 8 months postpartum, mothers collected a fecal sample of themselves. At 2, 6 and 12 weeks and 8 months postpartum, mothers collected a fecal sample of their infant. For each fecal sample, a paper questionnaire was completed by the mother to assess maternal and/or infant health and medication use. In addition, around 32 weeks of gestation and 8 weeks postpartum a researcher collected a maternal hair sample for hormone assessments during a laboratory visit.  
+
+
+
+
+
+
+
+## Measures
+
+### Fecal samples
+
+Mothers were instructed to collect a stool sample of themselves and their infant at different time points at home. After collection, they were instructed to store the sample immediately in their own freezer, at $±$ -20 °C. Participants brought the samples to the lab in a cool box with ice when visiting our lab or a researcher picked up the samples at home with a mobile $±$ -18 °C freezer. In the lab, the samples were first stored in a -20 °C freezer and within a few weeks switched to a -80 °C freezer, where they were kept until being sent to Baseclear (BaseClear BV, The Netherlands) for analysis (see supplementary methods for microbial DNA extraction and taxonomic profiling). The number of collected stool samples per time point are shown in supplementary Table S1. Among the infants, their mothers collected all four samples for 92 infants, three samples for 43 infants, two samples for eight infants, and one sample for one infant. Among the mothers, 97 provided all samples followed by 50 who provided two and four who provided only one sample. 
+
+
+
+
+
+
+
+### Hair cortisol 
+
+Maternal hair cortisol and cortisone was used as a biomarker of physiological stress, capturing cortisol and cortisone secretion over longer periods of months. During the laboratory visit, a trained researcher cut a hair sample of around 100-150 hairs from the posterior vertex of the head of the mothers, as close as possible to the scalp. From the sample taken at 32 weeks pregnancy we analyzed three segments of two centimeters as measured from the scalp. From the sample taken at 8 weeks postpartum we used a 1 cm segment. On average hair grows one centimeter a month. Accordingly, the different segments reflect different periods of the hormones exposure prenatally and postnatally as shown in Table 2. Table 2 furthermore introduces abbreviations that represent these different periods for simplicity.  The samples were packed individually in aluminum in an envelope and stored until all samples were collected. Thereafter, they were sent out for analysis to the Dresden LAB Service, Germany. The hormone concentrations of the samples were assayed using a column-switching Liquid Chromatography Tandem Mass Spectrometry (LC-MS/MS). Due to the COVID-19 measures that were being applied at the moment of data collection, several lab visits had to be cancelled. This resulted in a relatively high number of missing data for the hair samples (Table 1).
+
+
+
+```{r}
+load(here("data/rdata/tables.Rds"))
+cap <- "Number of hair cortisol samples, corresponding period of cortisol and cortisone production and abbreviations used throughout the manuscript for these samples."
+kable(tbl3, caption = cap) 
+# add footnote: The column "Measured period" refers to gestational weeks for the prenatal rows and to postpartum weeks in the postpartum rows.
+```
+
+
+
+
+### Stress questionnaires
+
+
+#### EPDS
+The Edinburgh Postnatal Depression Scale (EPDS, McDonald’s $\omega$ ranged between .88 - .94) [@coxDetectionPostnatalDepression1987]) was used to measure depressive symptoms over de last seven days. It consists of 10 items, reported on a four-point scale, translating to a score of zero to three points. Total scores can range from zero to 30, with a higher score indicating more depressive symptoms. A score of 14 and higher is considered “probable depression”. An example item of the EPDS is: “I have been able to laugh and see the funny side of things” (reversed item).
+
+#### STAI-state
+The State-Trait Anxiety Inventory (STAI, McDonald’s $\omega$ ranged between .93-.96) was used to measure how anxious the participant was feeling at the moment. This subscale consists of 20 items, reported on 4-point scales ranging from one to four. Total scores can range from 20 to 80, with a higher score indicating more experienced anxiety. A score of 45 or higher is considered “high anxiety”. An example item of the STAI-state is: “I feel calm” (reversed item). 
+
+#### PSS-10
+The Perceived Stress Scale-10 (PSS-10, McDonald’s $\omega$ ranged between .89-.93) was used to measure how stressful certain situations were perceived over the previous month. It consists of 10 items, reported on a five-point scale, with answers ranging from “never” (zero) to “often” (four). Total scores can range from zero to 40, with a higher score indicating more experienced stress. A score of 27 or higher is considered “high perceived stress”. An example item of the PSS-10 is: “In the last month, how often have you felt confident about your ability to handle your personal problems?” (reversed item).
+
+#### PRAQR2
+
+Two subscales of the Pregnancy Related Anxiety Questionnaire-Revised (PRAQR2; McDonald’s $\omega$ ranged between .80-.85) namely ‘Fear of giving birth’ (three items; PRAQR2-B) and ‘Worries about bearing a handicapped child’ (four items; PRAQR2-H), were used to measure pregnancy specific anxiety symptoms. The items were answered on a five-point Likert scale, with a range from one (definitely not true) to five (definitely true), reflecting how the participant felt during that pregnancy. Sum scores on the two scales ranged from three to 15 and four to 20, respectively. A higher score was an indication of more pregnancy-specific anxiety. An example item of the subscale ‘Fear of giving birth’ is “I am anxious about the delivery” and an example of the subscale ‘Worries about bearing a handicapped child’ is “I am afraid the baby will be mentally handicapped or will suffer from brain damage”.
+
+#### PSAS
+The Postpartum Specific Anxiety Scale (PSAS, McDonald’s $\omega$ = .95) was used to measure specific anxiety symptoms during the postpartum period. It consists of 51 items, reported on a four or five-point scale. The total score can range from 51 to 204, with a higher score indicating more postpartum anxiety. A score of 112 or higher is considered “a clinical level of anxiety”. In addition, to reduce participant burden, the 12-item PSAS-Research Short Form – Crisis (RSF-C, McDonald’s $\omega$ ranged from .81-.83) was used as well [@silverioValidationPostpartumSpecific2021]. Total scores range from 12 to 48, and a score of 26 and higher is proposed to be the cut-off score for a clinical level of anxiety. An example item of both the PSAS and the PSAS-RSF-C is: “I have worried more about my relationship with my partner than before my baby was born”. At two and 12 weeks postpartum, the PSAS-RSF-C was completed, while at six weeks postpartum the PSAS was completed. 
+
+
+
+#### Maternal stress composite
+
+We created a composite stress score (maternal stress; MS) from three highly correlated (supplementary figures S2-S3) questionnaires (EPDS, PSS-10, STAI) to reduce the complexity of the analysis and reporting. However, to alleviate the issue of reproducibility due to the use of different stress measurements, we also ran all analyses with the single stress measurements and reported if results differed meaningfully from the composite score. The PRAQR2 (prenatal) and the PSAS (postnatal) were left out of the MS variable because otherwise the composite score would represent a different measure pre- and postnatally.
+
+#### Potential Covariates
+
+All the following covariates were obtained via questionnaires during the measurement rounds as described in the Procedures section. Maternal age was calculated in years, based on the age at the measurement at 18 weeks of pregnancy. Maternal education included seven categories (one to seven), with categories $\geq$ 6 reflecting high education (degree of applied sciences or university) and categories $\leq$ 5 reflecting low/medium education. Maternal pre-pregnancy body mass index (pBMI) was based on the self-reported weight and length prior to the current pregnancy. A score for maternal diet quality was available at 18 weeks and 32 weeks of gestation. Specifically, a food frequency questionnaire [@siebelinkSelfreportedEnergyIntake2011;@streppelRelativeValidityFood2013;@loomanDevelopmentEvaluationDutch2017] was obtained and used to calculate the total score of the Dutch Healthy Diet index [@loomanDevelopmentEvaluationDutch2017]. A higher score reflected a higher total diet quality. A maternal activity score was available at 18 weeks and 32 weeks of gestation. This score was based on the total score of the Pregnancy Physical Activity Questionnaire [@chasan-taberDevelopmentValidationPregnancy2004]. A higher score indicated more physical activity. Antibiotic use was included as a dichotomous variable and reflected whether the mother or infant had used any antibiotics at the day or the week before taking the stool sample. Furthermore, parity, infant sex, gestational age, delivery mode and feeding mode (i.e. exclusively breastfed, formula fed or mixed) were available to include as covariate. Covariate selection is further explained in the Statistical analysis section.
+
+
+
+## Statistical analysis
+
+The statistical analyses were performed in R (version 4.3.1) [@R2022]. All analyses were preregistered (https://doi.org/10.17605/OSF.IO/CKE84) and the code is openly available with a permanent DOI (DOI). Missing covariates were imputed using predictive mean matching (m = 50) [@kleinkeMultipleImputationViolated2017] using the *mice* (v3.16.0) package [@buurenMiceMultivariateImputation2011]. Deviations of results from complete case analyses are reported. Several features of the gut microbiome were examined, including alpha diversity, beta diversity, species and phylum level relative abundances and volatility. For alpha diversity, we calculated Faith and Shannon diversity indices using the *mia* (v1.11.4) package [@mia2023]. For beta diversity, we used Aitchison distance (Euclidean distances of centered-log-ratio transformed abundances) and we report if results deviate if Bray-Curtis is used instead. Volatility was calculated as described by Bastiaanssen et al. [@bastiaanssenVolatilityConceptUnderstand2021]. For differential abundance analyses we used *MaAsLin2* [@maaslin2024], which has performed well according to multilple benchmark studies [@nearingMicrobiomeDifferentialAbundance2022;@peltoElementaryMethodsProvide2024]. Results were corrected for multiple testing using the Benjamini–Hochberg procedure [@benjaminiControllingFalseDiscovery1995]. All adjusted p-values can be found in the column *q* in the supplementary tables.
+
+We used Bayesian robust linear models to investigate associations between the maternal stress variables and alpha diversity and volatility using the *brms* (v2.21.0) package [@burknerAdvancedBayesianMultilevel2018] with default priors and a student t distribution for the response variable. In these Bayesian models we reject the null hypothesis if the 95% highest probability density interval (HDI) excludes zero for non-directional hypotheses or if more than 95% of the posterior distribution is larger or smaller than zero, respectively, for directional hypotheses (indicated by $P(\beta \geq 0)$ in text). For beta diversity analyses we applied PERMANOVA with the *adonis2* function from the *vegan* (v2.6.4) package [@vegan2023]. We accounted for non-independence by specifying random intercepts in models that included repeated samples of an individual and additionally performed analyses per time point. To determine the model structure, we created directed acyclic graphs (DAG) for the infant and mother samples separately (supplementary figures S4-S5). We tested conditional independence and adjusted the DAG if necessary. DAGs graphically represent the knowledge and assumptions of the analyst. Some of the assumptions can be tested (testing conditional independence). Given these assumptions, the DAG dictates which covariates must be included to answer the research questions of interest [@cinelliCrashCourseGood2020]. While some covariates need to be included to reduce bias (i.e. physical activity, parity and maternal age and education for the maternal samples and delivery mode, gestational age and parity for the infant samples), others can optionally be included (in this case pBMI for the maternal samples and maternal education, feeding mode, gestational age, and child sex for the infant samples). We used leave-one-out cross-validation [@vehtariPracticalBayesianModel2017] to decide whether such optional covariates should be included to improve model fit.
+
+
